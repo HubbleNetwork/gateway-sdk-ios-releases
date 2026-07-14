@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+        Build-time overrides for Hubble engineers. Empty by default;
+        the SDK falls back to `HubbleGatewayConfig.productionAPIBaseURL`.
+
+        To hit a staging endpoint from a local build, replace the empty
+        string below with the staging URL (e.g. "https://staging-gw-api.hubble.com"),
+        rebuild the SDK, and DO NOT commit the change. Values are read
+        from `Bundle.module` — third-party integrators consuming the
+        SPM release get whatever URL is baked into the SDK's resource
+        bundle at compile time.
+
+        Mirror of Android's `local.properties` → `BuildConfig` pattern.
+    -->
+    <key>apiBaseURL</key>
+    <string></string>
+</dict>
+</plist>

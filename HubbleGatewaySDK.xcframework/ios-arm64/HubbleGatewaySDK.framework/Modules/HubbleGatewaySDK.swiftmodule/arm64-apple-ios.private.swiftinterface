@@ -1,0 +1,328 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.2 effective-5.10 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios16.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_fsys38m1zb
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.2
+import BackgroundTasks
+import Compression
+@preconcurrency import CoreBluetooth
+import CoreLocation
+import CoreMotion
+import CryptoKit
+import Darwin
+import Foundation
+import Foundation/*.Bundle*/
+import Foundation/*.ProcessInfo*/
+import Foundation/*.URL*/
+import Network
+import SQLite3
+import Security
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+public enum GatewayError : Swift.Error, Swift.Sendable, Swift.CustomStringConvertible {
+  case notStarted
+  case alreadyStarted
+  case bluetoothUnauthorized
+  case bluetoothUnsupported
+  case locationUnauthorized
+  case registrationFailed(underlying: Swift.String)
+  case uploadFailed(status: Swift.Int, body: Swift.String?, retryAfter: Foundation.TimeInterval? = nil)
+  case tokenRevoked
+  case tokenExpired
+  case persistenceFailure(Swift.String)
+  case invalidConfig(Swift.String)
+  public var description: Swift.String {
+    get
+  }
+}
+public struct GatewayPermissionRequirement : Swift.Sendable, Swift.Equatable {
+  public enum Kind : Swift.String, Swift.Sendable, Swift.Equatable {
+    case bluetooth
+    case locationWhenInUse
+    case locationAlways
+    case motion
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public let kind: HubbleGatewaySDK.GatewayPermissionRequirement.Kind
+  public let rationale: Swift.String
+  public let required: Swift.Bool
+  public let requestOrder: Swift.Int
+  public let requiresSeparateRequest: Swift.Bool
+  public let granted: Swift.Bool
+  public static func == (a: HubbleGatewaySDK.GatewayPermissionRequirement, b: HubbleGatewaySDK.GatewayPermissionRequirement) -> Swift.Bool
+}
+extension HubbleGatewaySDK.GatewayPermissions {
+  @_Concurrency.MainActor public static func requirementsGuide() -> [HubbleGatewaySDK.GatewayPermissionRequirement]
+}
+public struct PermissionStatus : Swift.Sendable {
+  public let bluetooth: HubbleGatewaySDK.BluetoothAuthorization
+  public let location: HubbleGatewaySDK.LocationAuthorization
+  public let motion: HubbleGatewaySDK.MotionAuthorization
+  public var isReady: Swift.Bool {
+    get
+  }
+  public var isReadyForBackground: Swift.Bool {
+    get
+  }
+}
+public enum BluetoothAuthorization : Swift.String, Swift.Sendable {
+  case notDetermined, denied, restricted, authorized, unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum LocationAuthorization : Swift.String, Swift.Sendable {
+  case notDetermined, denied, restricted, authorizedWhenInUse, authorizedAlways
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum MotionAuthorization : Swift.String, Swift.Sendable {
+  case notDetermined, denied, restricted, authorized
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_Concurrency.MainActor public enum GatewayPermissions {
+  @_Concurrency.MainActor public static func currentStatus() -> HubbleGatewaySDK.PermissionStatus
+  @_Concurrency.MainActor public static func bluetoothStatus() -> HubbleGatewaySDK.BluetoothAuthorization
+  @_Concurrency.MainActor public static func locationStatus() -> HubbleGatewaySDK.LocationAuthorization
+  @_Concurrency.MainActor public static func motionStatus() -> HubbleGatewaySDK.MotionAuthorization
+}
+extension HubbleGatewaySDK.GatewayPermissions {
+  @_Concurrency.MainActor public static func request(presentingAlwaysExplainer: @_Concurrency.MainActor () async -> Swift.Bool = { true }, bluetoothTimeout: Foundation.TimeInterval = 30, locationTimeout: Foundation.TimeInterval = 30, settingsReturnTimeout: Foundation.TimeInterval = 120, motionTimeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.PermissionStatus
+  @_Concurrency.MainActor public static func requestBluetooth(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.BluetoothAuthorization
+  @_Concurrency.MainActor public static func requestLocationWhenInUse(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.LocationAuthorization
+  @_Concurrency.MainActor public static func requestMotion(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.MotionAuthorization
+  @_Concurrency.MainActor public static func openSettingsForLocationAlways(timeout: Foundation.TimeInterval = 120) async -> HubbleGatewaySDK.LocationAuthorization
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class HubbleGateway {
+  @_Concurrency.MainActor public static let shared: HubbleGatewaySDK.HubbleGateway
+  @_Concurrency.MainActor final public var initializationState: HubbleGatewaySDK.InitializationState {
+    get
+  }
+  @_Concurrency.MainActor final public var isScanning: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public var isFullyOperational: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public var privacyPolicyUrl: Swift.String? {
+    get
+  }
+  @_Concurrency.MainActor final public var isDataCollectionEnabled: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public var gatewayId: Swift.String? {
+    get
+  }
+  @_Concurrency.MainActor final public var isRegistered: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public var lastLocation: HubbleGatewaySDK.LocationFix? {
+    get
+  }
+  @_Concurrency.MainActor final public var isBluetoothPoweredOn: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public func registerIfNeeded() async throws
+  @_Concurrency.MainActor public static func registerBackgroundTasks(configProvider: (@_Concurrency.MainActor @Sendable () -> HubbleGatewaySDK.HubbleGatewayConfig?)? = nil)
+  @_Concurrency.MainActor final public func start(config: HubbleGatewaySDK.HubbleGatewayConfig) throws
+  @discardableResult
+  @_Concurrency.MainActor final public func startScanning() -> HubbleGatewaySDK.ScanStartResult
+  @_Concurrency.MainActor final public func stopScanning()
+  @_Concurrency.MainActor final public func setDataCollectionEnabled(_ enabled: Swift.Bool)
+  @_Concurrency.MainActor final public func deleteAllData()
+  @_Concurrency.MainActor final public func stop()
+  @_Concurrency.MainActor final public func addScanListener(_ listener: any HubbleGatewaySDK.ScanListener)
+  @_Concurrency.MainActor final public func removeScanListener(_ listener: any HubbleGatewaySDK.ScanListener)
+  @_Concurrency.MainActor final public func uploadDiagnostics() async throws -> HubbleGatewaySDK.UploadDiagnostics
+  @available(iOS 26.0, *)
+  @_Concurrency.MainActor final public func requestBacklogDrain(title: Swift.String, subtitle: Swift.String) throws
+  @_Concurrency.MainActor final public var isActiveScanningOverride: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public func startActiveScanning()
+  @_Concurrency.MainActor final public func stopActiveScanning()
+  @objc deinit
+}
+public struct HubbleGatewayConfig : Swift.Sendable {
+  public let sdkKey: Swift.String
+  public let respectLowPowerMode: Swift.Bool
+  public let uploadOnCellular: Swift.Bool
+  public let privacyPolicyUrl: Swift.String
+  public static let productionAPIBaseURL: Foundation.URL
+  public init(sdkKey: Swift.String, respectLowPowerMode: Swift.Bool = true, uploadOnCellular: Swift.Bool = true, privacyPolicyUrl: Swift.String = "")
+}
+public enum InitializationState : Swift.String, Swift.Sendable {
+  case notStarted
+  case initializing
+  case ready
+  case failed
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct IntegrationCheckResult : Swift.Sendable, Swift.CustomStringConvertible {
+  public let issues: [HubbleGatewaySDK.IntegrationIssue]
+  public var isValid: Swift.Bool {
+    get
+  }
+  public var hasWarnings: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+public struct IntegrationIssue : Swift.Sendable, Swift.CustomStringConvertible {
+  public enum Severity : Swift.String, Swift.Sendable {
+    case error, warning
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public let severity: HubbleGatewaySDK.IntegrationIssue.Severity
+  public let key: Swift.String
+  public let message: Swift.String
+  public var description: Swift.String {
+    get
+  }
+}
+extension HubbleGatewaySDK.HubbleGateway {
+  nonisolated public static func validateIntegration(bundle: Foundation.Bundle = .main) -> HubbleGatewaySDK.IntegrationCheckResult
+}
+public enum DeviceMotionState : Swift.String, Swift.Sendable {
+  case stationary
+  case moving
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct GatewayScanResult : Swift.Sendable, Swift.Equatable {
+  public let peripheralIdentifier: Foundation.UUID
+  public let serviceUUID: CoreBluetooth.CBUUID
+  public let serviceData: Foundation.Data
+  public let rssi: Swift.Int
+  public let timestamp: Foundation.Date
+  public let location: HubbleGatewaySDK.LocationFix?
+  public init(peripheralIdentifier: Foundation.UUID, serviceUUID: CoreBluetooth.CBUUID, serviceData: Foundation.Data, rssi: Swift.Int, timestamp: Foundation.Date, location: HubbleGatewaySDK.LocationFix?)
+  public static func == (a: HubbleGatewaySDK.GatewayScanResult, b: HubbleGatewaySDK.GatewayScanResult) -> Swift.Bool
+}
+public struct LocationFix : Swift.Sendable, Swift.Equatable, Swift.Codable {
+  public let latitude: Swift.Double
+  public let longitude: Swift.Double
+  public let horizontalAccuracy: Swift.Double
+  public let verticalAccuracy: Swift.Double
+  public let altitude: Swift.Double
+  public let speed: Swift.Double
+  public let bearing: Swift.Double
+  public let timestamp: Foundation.Date
+  public init(latitude: Swift.Double, longitude: Swift.Double, horizontalAccuracy: Swift.Double, verticalAccuracy: Swift.Double, altitude: Swift.Double, speed: Swift.Double, bearing: Swift.Double, timestamp: Foundation.Date)
+  public static func == (a: HubbleGatewaySDK.LocationFix, b: HubbleGatewaySDK.LocationFix) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum UploadStatus : Swift.Int, Swift.Sendable {
+  case pending
+  case uploading
+  case uploaded
+  case failed
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol ScanListener : AnyObject, Swift.Sendable {
+  func onScanResult(_ result: HubbleGatewaySDK.GatewayScanResult)
+  func onUploadDiagnostics(_ diagnostics: HubbleGatewaySDK.UploadDiagnostics)
+}
+extension HubbleGatewaySDK.ScanListener {
+  public func onUploadDiagnostics(_ diagnostics: HubbleGatewaySDK.UploadDiagnostics)
+}
+public struct UploadDiagnostics : Swift.Sendable, Swift.Codable {
+  public let pendingPackets: Swift.Int
+  public let uploadingPackets: Swift.Int
+  public let failedPackets: Swift.Int
+  public let pendingLocations: Swift.Int
+  public let uploadingLocations: Swift.Int
+  public let failedLocations: Swift.Int
+  public let lastUploadAt: Foundation.Date?
+  public let lastLocationsUploadAt: Foundation.Date?
+  public let lastLogsUploadAt: Foundation.Date?
+  public let lastUploadError: Swift.String?
+  public let lastSuccessfulBatchSize: Swift.Int
+  public let bytesUploadedLast24h: Swift.Int64
+  public let skipUntil: Foundation.Date?
+  public init(pendingPackets: Swift.Int, uploadingPackets: Swift.Int, failedPackets: Swift.Int, pendingLocations: Swift.Int, uploadingLocations: Swift.Int = 0, failedLocations: Swift.Int = 0, lastUploadAt: Foundation.Date?, lastLocationsUploadAt: Foundation.Date? = nil, lastLogsUploadAt: Foundation.Date? = nil, lastUploadError: Swift.String?, lastSuccessfulBatchSize: Swift.Int, bytesUploadedLast24h: Swift.Int64, skipUntil: Foundation.Date? = nil)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ScanStartResult : Swift.Sendable, Swift.Equatable {
+  public enum FailureReason : Swift.String, Swift.Sendable {
+    case notReady
+    case dataCollectionDisabled
+    case missingPermissions
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public let didStart: Swift.Bool
+  public let missingPermissions: [HubbleGatewaySDK.GatewayPermissionRequirement.Kind]
+  public let failureReason: HubbleGatewaySDK.ScanStartResult.FailureReason?
+  public var isBackgroundCapable: Swift.Bool {
+    get
+  }
+  public init(didStart: Swift.Bool, missingPermissions: [HubbleGatewaySDK.GatewayPermissionRequirement.Kind], failureReason: HubbleGatewaySDK.ScanStartResult.FailureReason?)
+  public static func == (a: HubbleGatewaySDK.ScanStartResult, b: HubbleGatewaySDK.ScanStartResult) -> Swift.Bool
+}
+extension HubbleGatewaySDK.GatewayPermissionRequirement.Kind : Swift.Hashable {}
+extension HubbleGatewaySDK.GatewayPermissionRequirement.Kind : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.GatewayPermissions : Swift.Sendable {}
+extension HubbleGatewaySDK.BluetoothAuthorization : Swift.Equatable {}
+extension HubbleGatewaySDK.BluetoothAuthorization : Swift.Hashable {}
+extension HubbleGatewaySDK.BluetoothAuthorization : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.LocationAuthorization : Swift.Equatable {}
+extension HubbleGatewaySDK.LocationAuthorization : Swift.Hashable {}
+extension HubbleGatewaySDK.LocationAuthorization : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.MotionAuthorization : Swift.Equatable {}
+extension HubbleGatewaySDK.MotionAuthorization : Swift.Hashable {}
+extension HubbleGatewaySDK.MotionAuthorization : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.HubbleGateway : Swift.Sendable {}
+extension HubbleGatewaySDK.InitializationState : Swift.Equatable {}
+extension HubbleGatewaySDK.InitializationState : Swift.Hashable {}
+extension HubbleGatewaySDK.InitializationState : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.IntegrationIssue.Severity : Swift.Equatable {}
+extension HubbleGatewaySDK.IntegrationIssue.Severity : Swift.Hashable {}
+extension HubbleGatewaySDK.IntegrationIssue.Severity : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.DeviceMotionState : Swift.Equatable {}
+extension HubbleGatewaySDK.DeviceMotionState : Swift.Hashable {}
+extension HubbleGatewaySDK.DeviceMotionState : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.UploadStatus : Swift.Equatable {}
+extension HubbleGatewaySDK.UploadStatus : Swift.Hashable {}
+extension HubbleGatewaySDK.UploadStatus : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.ScanStartResult.FailureReason : Swift.Equatable {}
+extension HubbleGatewaySDK.ScanStartResult.FailureReason : Swift.Hashable {}
+extension HubbleGatewaySDK.ScanStartResult.FailureReason : Swift.RawRepresentable {}
