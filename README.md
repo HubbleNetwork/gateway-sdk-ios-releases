@@ -5,6 +5,22 @@ A passive background BLE gateway that scans for Hubble (`0xFCA6`) and Tile
 uploads batches on a **60 s to 15 min** cadence (foreground / moving vs.
 background stationary).
 
+### The Hubble service UUID
+
+`0xFCA6` is the short form of Hubble Network's Bluetooth-SIG-assigned
+16-bit service UUID. In full 128-bit form it's:
+
+```
+0000FCA6-0000-1000-8000-00805F9B34FB
+```
+
+It's listed in the official [Bluetooth SIG 16-bit UUID assigned numbers
+register](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf)
+(page 119).
+
+The SDK also scans for Tile's service UUID (`0xFEED`) by default, for
+interoperability with the Tile network.
+
 ## Requirements
 
 - iOS 16.0+
@@ -16,7 +32,7 @@ background stationary).
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.5.0")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.1")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**
@@ -127,11 +143,14 @@ prompts, in your own UI flow, via `GatewayPermissions`:
 ```swift
 Task { @MainActor in
     // 1. Drive the prompts. One call runs the full escalation:
-    //    BT → WhenInUse → Settings round-trip for Always → Motion.
+    //    BT → WhenInUse → Always → Motion. The Always step uses the
+    //    in-app system prompt ("Change to Always Allow"); it only
+    //    falls back to a Settings round-trip when the user already
+    //    consumed that one-shot prompt on this install.
     _ = await GatewayPermissions.request {
         // Present your own alert / sheet explaining why Location
-        // needs to be "Always". Return true to open Settings, false
-        // to skip the escalation and stay at WhenInUse.
+        // needs to be "Always". Return true to continue with the
+        // escalation, false to skip it and stay at WhenInUse.
         await presentAlwaysExplainer()
     }
 
@@ -157,7 +176,10 @@ Task { @MainActor in
 **Prefer to drive each prompt yourself?** Call
 `GatewayPermissions.requestBluetooth()`,
 `GatewayPermissions.requestLocationWhenInUse()`,
-`GatewayPermissions.openSettingsForLocationAlways()`, and
+`GatewayPermissions.requestLocationAlways()` (in-app system prompt;
+check `isLocationAlwaysPromptAvailable` and fall back to
+`GatewayPermissions.openSettingsForLocationAlways()` once the one-shot
+prompt has been consumed), and
 `GatewayPermissions.requestMotion()` in your own onboarding order.
 Motion is optional — when not granted the SDK falls back to
 CoreLocation-speed motion detection.
@@ -204,9 +226,15 @@ location is persisted with the packet, so it can be older or coarser
 than what actually ships to the server (or present when the stored row
 got `NULL`).
 
+> **Deduping devices? Key on `serviceData`, not `peripheralIdentifier`.**
+> iOS derives the peripheral identifier from the beacon's advertised
+> Bluetooth address, and Hubble beacons rotate that address — so the same
+> physical beacon reappears under a new `peripheralIdentifier` after each
+> rotation. The device identity lives in the `serviceData` payload.
+
 **Building a live "devices nearby" list?** The `HubbleGatewaySample`
 companion app ships a `GatewayController` you can copy verbatim — it
-wraps the listener, dedupes sightings by peripheral into an
+wraps the listener, dedupes sightings by `serviceData` into an
 `@Observable [DiscoveredDevice]` that SwiftUI binds to directly, and
 exposes an `AsyncStream<GatewayScanResult>` via `discoveries()` for
 reactive consumers (analytics, filtering, tests). Each `discoveries()`
@@ -257,6 +285,42 @@ Server-driven overrides — delivered at registration and on each
 heartbeat — can retune the upload intervals, packet batch size, dedup
 windows, and cellular gating at runtime, with **no app update
 required**.
+
+## Understanding log messages
+
+All SDK log lines are tagged `GSDK:` and go through `os.Logger`
+(subsystem `com.hubble.gateway`). Watch live with:
+
+```
+log stream --predicate 'subsystem == "com.hubble.gateway"'
+```
+
+Lines logged at `.notice`/`.error` are persisted to disk and can be
+recovered after the fact (e.g. after an unattended field test) with:
+
+```
+sudo log collect --device --last 30m
+```
+
+Lines at `.info`/`.debug` are memory-buffered only and won't survive
+being collected later — they're for live streaming while attached.
+
+| Log line | Level | Meaning |
+|----------|-------|---------|
+| `ingest svc=… bytes=… rssi=… motion=… loc=ok` | `.notice` | A scan result was stored with a usable location fix attached. |
+| `ingest … loc=nil` | `.notice` | No cached location fix exists yet at all — packet is held with `location_json = NULL`, excluded from upload until a fix arrives. |
+| `ingest … loc=stale` | `.notice` | Cached fix is older than the backfill window (30 min stationary / 30 s moving) — packet held, and a one-shot fresh-fix request is triggered. |
+| `ingest … loc=inaccurate` | `.notice` | Cached fix exists but exceeds the 50 m accuracy threshold — packet held. |
+| `ingest … loc=future` | `.notice` | Cached fix has a timestamp in the future (clock skew) — rejected, packet held. |
+| `no eligible packets (pending=N)` | `.notice` | Upload cycle ran but found nothing to send — expected if BLE hasn't detected anything, or if `N` packets are pending a location fix (cross-reference the `ingest … loc=` lines above). |
+| `no eligible locations (pending=…, uploading=…, failed=…) — <reason>` | `.notice` | Same idea for the independent `/locations` upload stream; `<reason>` spells out why (no fixes captured yet, already uploaded, in backoff, etc). |
+| `posting N packets` / `posting N locations` | `.notice` | A batch is being sent to the server. |
+| `HubbleGateway ready` / `... (dormant — data collection disabled)` | `.notice` | SDK finished `start()`; the dormant variant means `isDataCollectionEnabled == false`. |
+| `auto-started from persisted scanning intent` | `.notice` | Process was killed and relaunched by iOS; the SDK resumed scanning on its own because a scanning intent was persisted from before the kill. |
+| `Motion state -> moving/stationary (natural=…, override=…)` | `.notice` | Motion classification changed — drives location accuracy/cadence and dedup window width. |
+| `Triggering one-shot fresh fix (cached older than Ns)` / `One-shot fresh fix delivered` | `.notice` | The stale-fix recovery path: a cached fix aged out, so the SDK requested (and then received) a fresh one-off `CLLocation` update outside the normal continuous/SLC stream. |
+| `Authorization changed to N` / `Cannot start — authorization=N` | `.info` / `.error` | CoreLocation authorization status changed; see [`CLAuthorizationStatus`](https://developer.apple.com/documentation/corelocation/clauthorizationstatus) for what `N` maps to. |
+| Any `Log.error` line (network/decode/DB failures) | `.error` | Always persisted regardless of level — these are the only lines guaranteed to survive today without the `.notice` promotions above. |
 
 ## Privacy & data collection
 

@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.3.2 effective-5.10 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)
-// swift-module-flags: -target x86_64-apple-ios16.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_fsys38m1zb
+// swift-module-flags: -target x86_64-apple-ios16.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_b1tfhtjhfk
 // swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.2
 import BackgroundTasks
 import Compression
@@ -107,6 +107,10 @@ extension HubbleGatewaySDK.GatewayPermissions {
   @_Concurrency.MainActor public static func requestBluetooth(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.BluetoothAuthorization
   @_Concurrency.MainActor public static func requestLocationWhenInUse(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.LocationAuthorization
   @_Concurrency.MainActor public static func requestMotion(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.MotionAuthorization
+  @_Concurrency.MainActor public static var isLocationAlwaysPromptAvailable: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor public static func requestLocationAlways(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.LocationAuthorization
   @_Concurrency.MainActor public static func openSettingsForLocationAlways(timeout: Foundation.TimeInterval = 120) async -> HubbleGatewaySDK.LocationAuthorization
 }
 @_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class HubbleGateway {
