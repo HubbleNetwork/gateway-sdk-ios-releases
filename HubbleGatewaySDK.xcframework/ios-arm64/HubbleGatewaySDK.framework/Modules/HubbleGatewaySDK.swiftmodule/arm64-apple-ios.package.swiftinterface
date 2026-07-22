@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.3.2 effective-5.10 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)
-// swift-module-flags: -target arm64-apple-ios16.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_sf0dk2u37a
+// swift-module-flags: -target arm64-apple-ios16.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_dro8tjbze8
 // swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.2
 import BackgroundTasks
 import Compression
@@ -236,15 +236,6 @@ public struct IntegrationIssue : Swift.Sendable, Swift.CustomStringConvertible {
 extension HubbleGatewaySDK.HubbleGateway {
   nonisolated public static func validateIntegration(bundle: Foundation.Bundle = .main) -> HubbleGatewaySDK.IntegrationCheckResult
 }
-public enum DeviceMotionState : Swift.String, Swift.Sendable {
-  case stationary
-  case moving
-  public init?(rawValue: Swift.String)
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
-    get
-  }
-}
 public struct GatewayScanResult : Swift.Sendable, Swift.Equatable {
   public let peripheralIdentifier: Foundation.UUID
   public let serviceUUID: CoreBluetooth.CBUUID
@@ -268,17 +259,6 @@ public struct LocationFix : Swift.Sendable, Swift.Equatable, Swift.Codable {
   public static func == (a: HubbleGatewaySDK.LocationFix, b: HubbleGatewaySDK.LocationFix) -> Swift.Bool
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
-}
-public enum UploadStatus : Swift.Int, Swift.Sendable {
-  case pending
-  case uploading
-  case uploaded
-  case failed
-  public init?(rawValue: Swift.Int)
-  public typealias RawValue = Swift.Int
-  public var rawValue: Swift.Int {
-    get
-  }
 }
 public protocol ScanListener : AnyObject, Swift.Sendable {
   func onScanResult(_ result: HubbleGatewaySDK.GatewayScanResult)
@@ -346,12 +326,6 @@ extension HubbleGatewaySDK.InitializationState : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.IntegrationIssue.Severity : Swift.Equatable {}
 extension HubbleGatewaySDK.IntegrationIssue.Severity : Swift.Hashable {}
 extension HubbleGatewaySDK.IntegrationIssue.Severity : Swift.RawRepresentable {}
-extension HubbleGatewaySDK.DeviceMotionState : Swift.Equatable {}
-extension HubbleGatewaySDK.DeviceMotionState : Swift.Hashable {}
-extension HubbleGatewaySDK.DeviceMotionState : Swift.RawRepresentable {}
-extension HubbleGatewaySDK.UploadStatus : Swift.Equatable {}
-extension HubbleGatewaySDK.UploadStatus : Swift.Hashable {}
-extension HubbleGatewaySDK.UploadStatus : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.ScanStartResult.FailureReason : Swift.Equatable {}
 extension HubbleGatewaySDK.ScanStartResult.FailureReason : Swift.Hashable {}
 extension HubbleGatewaySDK.ScanStartResult.FailureReason : Swift.RawRepresentable {}

@@ -27,15 +27,59 @@ interoperability with the Tile network.
 - Swift 5.9+
 - Xcode 15+
 
+## Getting an SDK key
+
+SDK keys (`hsk_...`) are currently issued manually. To obtain one:
+
+1. You must have a Hubble account — sign up at
+   [docs.hubble.com](https://docs.hubble.com) if you don't have one yet.
+2. Contact us via [support@hubble.com](mailto:support@hubble.com) to
+   discuss your intended gateway deployment use case. We'll generate a
+   key for your organization.
+
 ## Install
 
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.3")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.4")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**
+
+## AI-assisted integration (agent skill)
+
+This repo ships an agent skill in [`skills/hubble-gateway-ios/`](skills/hubble-gateway-ios/)
+that teaches AI coding assistants (Claude Code and other agents supporting the
+skill format) the SDK's actual API surface, required project setup, permission
+flow, background execution model, and troubleshooting steps. The SDK is not in
+model training data — without the skill, assistants will guess at the API.
+
+To use it with Claude Code, copy the skill into your project (or into
+`~/.claude/skills/` to make it available everywhere):
+
+```sh
+git clone --depth 1 https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git /tmp/hubble-sdk
+mkdir -p .claude/skills
+cp -R /tmp/hubble-sdk/skills/hubble-gateway-ios .claude/skills/
+```
+
+Claude Code picks it up automatically — it triggers whenever you mention
+Hubble, the gateway SDK, or work in a project depending on `HubbleGatewaySDK`.
+Try prompts like:
+
+> Integrate HubbleGatewaySDK into my app, including background scanning
+
+> Why isn't the gateway uploading when my app is in the background?
+
+What's inside:
+
+- `SKILL.md` — the four host-app requirements, SDK-key handling, common gotchas
+- `references/api-reference.md` — the complete public API reference
+- `references/swiftui-integration.md` + `assets/` — a ready-made observable
+  `GatewayController` wrapper and SwiftUI wiring
+- `references/background-and-troubleshooting.md` — background execution model,
+  App Store submission notes, and a troubleshooting table
 
 ## Quickstart
 

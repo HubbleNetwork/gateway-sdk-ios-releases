@@ -3,6 +3,16 @@
 All notable changes to the Hubble Gateway SDK for iOS. This file ships with
 each release to [gateway-sdk-ios-releases](https://github.com/HubbleNetwork/gateway-sdk-ios-releases).
 
+## 0.6.4 — 2026-07-23
+
+- New: releases now include the `skills/hubble-gateway-ios/` agent skill,
+  which teaches AI coding assistants (e.g. Claude Code) the SDK's API,
+  required project setup, permission flow, and troubleshooting. See the
+  README's "AI-assisted integration" section for install instructions.
+- Changed: `DeviceMotionState` and `UploadStatus` are now `internal`.
+  They were unintentionally public with no public API entry point
+  referencing them, so no integrator code can have depended on them.
+
 ## 0.6.3 — 2026-07-22
 
 - New: `HubbleGateway.setLogSink(_:minLevel:)` redirects the SDK's log
