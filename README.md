@@ -32,7 +32,7 @@ interoperability with the Tile network.
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.1")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.2")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**

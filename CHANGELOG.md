@@ -3,6 +3,12 @@
 All notable changes to the Hubble Gateway SDK for iOS. This file ships with
 each release to [gateway-sdk-ios-releases](https://github.com/HubbleNetwork/gateway-sdk-ios-releases).
 
+## 0.6.2 — 2026-07-22
+
+- The published XCFramework now embeds dSYM debug symbols, so integrators'
+  app archives symbolicate SDK frames and Xcode no longer warns about
+  missing dSYM UUIDs when uploading to App Store Connect.
+
 ## 0.6.1 — 2026-07-21
 
 - Releases now ship this `CHANGELOG.md` and carry real release notes
