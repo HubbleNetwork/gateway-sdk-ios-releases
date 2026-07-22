@@ -3,6 +3,19 @@
 All notable changes to the Hubble Gateway SDK for iOS. This file ships with
 each release to [gateway-sdk-ios-releases](https://github.com/HubbleNetwork/gateway-sdk-ios-releases).
 
+## 0.6.3 — 2026-07-22
+
+- New: `HubbleGateway.setLogSink(_:minLevel:)` redirects the SDK's log
+  stream to a host-owned `GatewayLogSink` (file, vendor logger, in-app
+  debug console) in addition to the always-on os.log output. Install it
+  in `App.init()` before `registerBackgroundTasks` to also capture
+  startup and background-relaunch logs; level filtering happens SDK-side
+  (default `.info`).
+- Fixed: location monitoring is re-armed immediately when a revoked
+  location authorization is re-granted while the gateway is running.
+  Previously scanning could continue with location monitoring down,
+  producing sightings without a location fix that were never uploaded.
+
 ## 0.6.2 — 2026-07-22
 
 - The published XCFramework now embeds dSYM debug symbols, so integrators'

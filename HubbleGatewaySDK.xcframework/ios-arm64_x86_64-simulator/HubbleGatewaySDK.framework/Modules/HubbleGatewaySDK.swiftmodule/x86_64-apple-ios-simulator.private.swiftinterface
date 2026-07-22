@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.3.2 effective-5.10 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)
-// swift-module-flags: -target x86_64-apple-ios16.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_852faaankw
+// swift-module-flags: -target x86_64-apple-ios16.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_sf0dk2u37a
 // swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.2
 import BackgroundTasks
 import Compression
@@ -37,6 +37,28 @@ public enum GatewayError : Swift.Error, Swift.Sendable, Swift.CustomStringConver
   public var description: Swift.String {
     get
   }
+}
+public struct GatewayLogEntry : Swift.Sendable {
+  public enum Level : Swift.String, Swift.Sendable, Swift.CaseIterable, Swift.Comparable {
+    case debug, info, notice, error
+    public static func < (lhs: HubbleGatewaySDK.GatewayLogEntry.Level, rhs: HubbleGatewaySDK.GatewayLogEntry.Level) -> Swift.Bool
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [HubbleGatewaySDK.GatewayLogEntry.Level]
+    public typealias RawValue = Swift.String
+    nonisolated public static var allCases: [HubbleGatewaySDK.GatewayLogEntry.Level] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public let level: HubbleGatewaySDK.GatewayLogEntry.Level
+  public let category: Swift.String
+  public let message: Swift.String
+  public let timestamp: Foundation.Date
+}
+public protocol GatewayLogSink : AnyObject, Swift.Sendable {
+  func log(_ entry: HubbleGatewaySDK.GatewayLogEntry)
 }
 public struct GatewayPermissionRequirement : Swift.Sendable, Swift.Equatable {
   public enum Kind : Swift.String, Swift.Sendable, Swift.Equatable {
@@ -144,6 +166,7 @@ extension HubbleGatewaySDK.GatewayPermissions {
   }
   @_Concurrency.MainActor final public func registerIfNeeded() async throws
   @_Concurrency.MainActor public static func registerBackgroundTasks(configProvider: (@_Concurrency.MainActor @Sendable () -> HubbleGatewaySDK.HubbleGatewayConfig?)? = nil)
+  nonisolated public static func setLogSink(_ sink: (any HubbleGatewaySDK.GatewayLogSink)?, minLevel: HubbleGatewaySDK.GatewayLogEntry.Level = .info)
   @_Concurrency.MainActor final public func start(config: HubbleGatewaySDK.HubbleGatewayConfig) throws
   @discardableResult
   @_Concurrency.MainActor final public func startScanning() -> HubbleGatewaySDK.ScanStartResult
@@ -302,6 +325,8 @@ public struct ScanStartResult : Swift.Sendable, Swift.Equatable {
   public init(didStart: Swift.Bool, missingPermissions: [HubbleGatewaySDK.GatewayPermissionRequirement.Kind], failureReason: HubbleGatewaySDK.ScanStartResult.FailureReason?)
   public static func == (a: HubbleGatewaySDK.ScanStartResult, b: HubbleGatewaySDK.ScanStartResult) -> Swift.Bool
 }
+extension HubbleGatewaySDK.GatewayLogEntry.Level : Swift.Hashable {}
+extension HubbleGatewaySDK.GatewayLogEntry.Level : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.GatewayPermissionRequirement.Kind : Swift.Hashable {}
 extension HubbleGatewaySDK.GatewayPermissionRequirement.Kind : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.GatewayPermissions : Swift.Sendable {}

@@ -32,7 +32,7 @@ interoperability with the Tile network.
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.2")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.3")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**
@@ -194,7 +194,8 @@ screen.
 
 **Granted a permission later** (user came back from Settings while the
 app was running)? Just call `startScanning()` again — the SDK also
-self-heals on every foregrounding, attaching the Bluetooth central and
+self-heals on every foregrounding — and re-arms location monitoring the
+moment a revoked authorization is re-granted — attaching the Bluetooth central and
 motion updates once their permissions are determined.
 
 ### 4. Observe sightings
@@ -305,6 +306,36 @@ sudo log collect --device --last 30m
 Lines at `.info`/`.debug` are memory-buffered only and won't survive
 being collected later — they're for live streaming while attached.
 
+### Redirecting logs to your own destination
+
+Install a `GatewayLogSink` to receive every SDK log line in-process and
+forward it wherever you like (a file, Datadog/Sentry, an in-app debug
+console):
+
+```swift
+final class MyLogSink: GatewayLogSink {
+    func log(_ entry: GatewayLogEntry) {
+        // entry.level (.debug/.info/.notice/.error), entry.category
+        // ("ble", "location", "upload", "storage", "lifecycle"),
+        // entry.message, entry.timestamp
+        myLogger.write("[\(entry.category)] \(entry.message)")
+    }
+}
+
+// In App.init(), BEFORE registerBackgroundTasks — that ordering also
+// captures startup and background-relaunch logs:
+HubbleGateway.setLogSink(MyLogSink(), minLevel: .info)
+```
+
+Contract: the sink is called synchronously on arbitrary queues — keep it
+fast and thread-safe (buffer, don't do I/O inline). `minLevel` filters
+SDK-side (default `.info`; `.debug` is per-advertisement volume — opt in
+only while actively debugging). The sink is additive — os.log output and
+the SDK's diagnostics upload keep working — and is retained strongly;
+pass `nil` to remove it. Note that entries can include location
+coordinates and device identifiers, so treat downstream storage
+accordingly.
+
 | Log line | Level | Meaning |
 |----------|-------|---------|
 | `ingest svc=… bytes=… rssi=… motion=… loc=ok` | `.notice` | A scan result was stored with a usable location fix attached. |
@@ -320,6 +351,7 @@ being collected later — they're for live streaming while attached.
 | `Motion state -> moving/stationary (natural=…, override=…)` | `.notice` | Motion classification changed — drives location accuracy/cadence and dedup window width. |
 | `Triggering one-shot fresh fix (cached older than Ns)` / `One-shot fresh fix delivered` | `.notice` | The stale-fix recovery path: a cached fix aged out, so the SDK requested (and then received) a fresh one-off `CLLocation` update outside the normal continuous/SLC stream. |
 | `Authorization changed to N` / `Cannot start — authorization=N` | `.info` / `.error` | CoreLocation authorization status changed; see [`CLAuthorizationStatus`](https://developer.apple.com/documentation/corelocation/clauthorizationstatus) for what `N` maps to. |
+| `Authorization restored — re-armed significant-change monitoring` | `.notice` | Location permission was revoked and re-granted while the gateway was running; the SDK re-armed its location wake source automatically — no action needed. |
 | Any `Log.error` line (network/decode/DB failures) | `.error` | Always persisted regardless of level — these are the only lines guaranteed to survive today without the `.notice` promotions above. |
 
 ## Privacy & data collection
