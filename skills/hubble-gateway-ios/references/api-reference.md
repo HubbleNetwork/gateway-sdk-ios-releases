@@ -1,6 +1,6 @@
 # HubbleGatewaySDK — Public API Reference
 
-SDK version 0.6.4. Everything below is the complete public surface — if a symbol isn't here, it doesn't exist; don't invent methods. All types live in `import HubbleGatewaySDK`. The main class and `GatewayPermissions` are `@MainActor`-isolated.
+SDK version 0.6.5. Everything below is the complete public surface — if a symbol isn't here, it doesn't exist; don't invent methods. All types live in `import HubbleGatewaySDK`. The main class and `GatewayPermissions` are `@MainActor`-isolated.
 
 ## HubbleGateway (main entry point)
 
@@ -219,4 +219,4 @@ public enum Severity { case error, warning }
 
 ## Auth model
 
-Only auth input is `sdkKey`, sent once as `X-Sdk-Key` at registration; the server returns short-lived device + refresh tokens stored in Keychain (service `com.hubble.gateway`). Token refresh is automatic and serialized. There is no delegated-auth or OAuth option in 0.6.4.
+Only auth input is `sdkKey`, sent once as `X-Sdk-Key` at registration; the server returns short-lived device + refresh tokens stored in Keychain (service `com.hubble.gateway`). Token refresh is automatic and serialized. There is no delegated-auth or OAuth option in 0.6.5.

@@ -1,5 +1,6 @@
 ---
 name: hubble-gateway-ios
+version: 0.6.5
 description: Integrate the Hubble Network Gateway iOS SDK (HubbleGatewaySDK) into an iOS app — installation, Info.plist and background-mode setup, permission flow, starting/stopping the gateway, observing discovered BLE devices in SwiftUI, diagnostics, and troubleshooting. Use this skill whenever the user mentions Hubble, HubbleGateway, gateway SDK, turning an app into a BLE gateway, scanning for Hubble/Tile beacons, or is working in a project that depends on HubbleGatewaySDK — even if they only ask a small question about permissions, background scanning, or upload behavior. Do not guess this SDK's API from memory; it is not in training data.
 ---
 

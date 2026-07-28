@@ -3,6 +3,30 @@
 All notable changes to the Hubble Gateway SDK for iOS. This file ships with
 each release to [gateway-sdk-ios-releases](https://github.com/HubbleNetwork/gateway-sdk-ios-releases).
 
+## 0.6.5 — 2026-07-27
+
+- Fixed: while the device was moving, every delivered location fix ran its
+  own upload cycle. With the default 50 m distance filter that is a fix
+  every few seconds in a vehicle, so the SDK issued roughly 3,000 HTTPS
+  requests per hour of driving instead of batching them — and kept the
+  cellular radio from ever going idle. The CoreLocation upload nudge is now
+  rate-limited to at most one cycle per upload interval; motion detection
+  is unaffected. Packet and location data are unchanged, only their
+  delivery is batched as originally intended.
+- Changed: the per-advertisement `ingest svc=… loc=…` log line is now
+  emitted at `.debug` instead of `.notice`. It is no longer written to the
+  unified log's persistent store and no longer included in the SDK's
+  diagnostics upload, so it will not appear in a `log collect` archive.
+  If you installed a `GatewayLogSink` with the default `minLevel: .info`,
+  you will stop receiving these lines — pass `minLevel: .debug` to keep
+  them, or read them live with
+  `log stream --predicate 'subsystem == "com.hubble.gateway"' --level debug`.
+  Everything at `.notice` and above is unchanged.
+- Performance: the SQLite statements on the per-advertisement path are now
+  compiled once and reused rather than recompiled per advertisement, and
+  hex encoding of the service-data payload no longer allocates per byte.
+  No behavior or schema change.
+
 ## 0.6.4 — 2026-07-23
 
 - New: releases now include the `skills/hubble-gateway-ios/` agent skill,

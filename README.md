@@ -42,7 +42,7 @@ SDK keys (`hsk_...`) are currently issued manually. To obtain one:
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.4")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.5")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**
@@ -382,11 +382,11 @@ accordingly.
 
 | Log line | Level | Meaning |
 |----------|-------|---------|
-| `ingest svc=… bytes=… rssi=… motion=… loc=ok` | `.notice` | A scan result was stored with a usable location fix attached. |
-| `ingest … loc=nil` | `.notice` | No cached location fix exists yet at all — packet is held with `location_json = NULL`, excluded from upload until a fix arrives. |
-| `ingest … loc=stale` | `.notice` | Cached fix is older than the backfill window (30 min stationary / 30 s moving) — packet held, and a one-shot fresh-fix request is triggered. |
-| `ingest … loc=inaccurate` | `.notice` | Cached fix exists but exceeds the 50 m accuracy threshold — packet held. |
-| `ingest … loc=future` | `.notice` | Cached fix has a timestamp in the future (clock skew) — rejected, packet held. |
+| `ingest svc=… bytes=… rssi=… motion=… loc=ok` | `.debug` | A scan result was stored with a usable location fix attached. |
+| `ingest … loc=nil` | `.debug` | No cached location fix exists yet at all — packet is held with `location_json = NULL`, excluded from upload until a fix arrives. |
+| `ingest … loc=stale` | `.debug` | Cached fix is older than the backfill window (30 min stationary / 30 s moving) — packet held, and a one-shot fresh-fix request is triggered. |
+| `ingest … loc=inaccurate` | `.debug` | Cached fix exists but exceeds the 50 m accuracy threshold — packet held. |
+| `ingest … loc=future` | `.debug` | Cached fix has a timestamp in the future (clock skew) — rejected, packet held. |
 | `no eligible packets (pending=N)` | `.notice` | Upload cycle ran but found nothing to send — expected if BLE hasn't detected anything, or if `N` packets are pending a location fix (cross-reference the `ingest … loc=` lines above). |
 | `no eligible locations (pending=…, uploading=…, failed=…) — <reason>` | `.notice` | Same idea for the independent `/locations` upload stream; `<reason>` spells out why (no fixes captured yet, already uploaded, in backoff, etc). |
 | `posting N packets` / `posting N locations` | `.notice` | A batch is being sent to the server. |
@@ -397,6 +397,18 @@ accordingly.
 | `Authorization changed to N` / `Cannot start — authorization=N` | `.info` / `.error` | CoreLocation authorization status changed; see [`CLAuthorizationStatus`](https://developer.apple.com/documentation/corelocation/clauthorizationstatus) for what `N` maps to. |
 | `Authorization restored — re-armed significant-change monitoring` | `.notice` | Location permission was revoked and re-granted while the gateway was running; the SDK re-armed its location wake source automatically — no action needed. |
 | Any `Log.error` line (network/decode/DB failures) | `.error` | Always persisted regardless of level — these are the only lines guaranteed to survive today without the `.notice` promotions above. |
+
+The `ingest …` lines are `.debug`: they fire once per BLE advertisement, so
+they are neither written to the unified log's persistent store nor shipped
+with the SDK's diagnostics. They will **not** appear in a `log collect`
+archive. Read them live instead:
+
+```bash
+log stream --device --predicate 'subsystem == "com.hubble.gateway"' --level debug
+```
+
+Everything at `.notice` and above is persisted and survives in a collected
+archive, so day-to-day field diagnosis does not depend on the debug stream.
 
 ## Privacy & data collection
 

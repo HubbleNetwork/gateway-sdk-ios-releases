@@ -62,10 +62,12 @@ final class AppModel {
         })
 
         // 2. Start SDK + scanning; surface the result instead of guessing.
+        //    `configure()` guards on `initializationState` internally, so a
+        //    repeat call is an idempotent no-op — it does not throw
+        //    `alreadyStarted` (only a direct second `HubbleGateway.start`
+        //    would). Any error thrown here is a real initialization failure.
         do {
             try controller.configure(HubbleGatewayConfig(sdkKey: /* key */))
-        } catch GatewayError.alreadyStarted {
-            // fine — already running
         } catch {
             startBlocker = "\(error)"; return
         }
