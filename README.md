@@ -488,3 +488,5 @@ rejects unnecessary prompts (Guideline 5.1.2).
 ## License
 
 Proprietary — Hubble Network, Inc.
+
+Third-party notices: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
