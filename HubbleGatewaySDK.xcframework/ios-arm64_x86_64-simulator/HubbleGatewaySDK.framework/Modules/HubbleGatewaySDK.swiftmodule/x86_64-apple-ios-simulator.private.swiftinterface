@@ -1,7 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.3.2 effective-5.10 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)
-// swift-module-flags: -target x86_64-apple-ios16.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_vqv0f4fegd
-// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.2
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target x86_64-apple-ios16.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_lwequdfl2j
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
 import BackgroundTasks
 import Compression
 @preconcurrency import CoreBluetooth
@@ -59,6 +59,20 @@ public struct GatewayLogEntry : Swift.Sendable {
 }
 public protocol GatewayLogSink : AnyObject, Swift.Sendable {
   func log(_ entry: HubbleGatewaySDK.GatewayLogEntry)
+}
+public enum GatewayOperatingMode : Swift.String, Swift.Sendable, Swift.Equatable, Swift.CaseIterable {
+  case full
+  case foregroundOnly
+  case notOperational
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [HubbleGatewaySDK.GatewayOperatingMode]
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [HubbleGatewaySDK.GatewayOperatingMode] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
 }
 public struct GatewayPermissionRequirement : Swift.Sendable, Swift.Equatable {
   public enum Kind : Swift.String, Swift.Sendable, Swift.Equatable {
@@ -146,6 +160,9 @@ extension HubbleGatewaySDK.GatewayPermissions {
   @_Concurrency.MainActor final public var isFullyOperational: Swift.Bool {
     get
   }
+  @_Concurrency.MainActor final public var operatingMode: HubbleGatewaySDK.GatewayOperatingMode {
+    get
+  }
   @_Concurrency.MainActor final public var privacyPolicyUrl: Swift.String? {
     get
   }
@@ -191,8 +208,12 @@ public struct HubbleGatewayConfig : Swift.Sendable {
   public let respectLowPowerMode: Swift.Bool
   public let uploadOnCellular: Swift.Bool
   public let privacyPolicyUrl: Swift.String
+  public let additionalScanServiceUUIDs: [CoreBluetooth.CBUUID]
   public static let productionAPIBaseURL: Foundation.URL
-  public init(sdkKey: Swift.String, respectLowPowerMode: Swift.Bool = true, uploadOnCellular: Swift.Bool = true, privacyPolicyUrl: Swift.String = "")
+  public static let defaultLocationAccuracyFloorMeters: Swift.Double
+  public static let defaultMovingFreshnessSeconds: Swift.Double
+  public static let defaultStationaryFreshnessSeconds: Swift.Double
+  public init(sdkKey: Swift.String, respectLowPowerMode: Swift.Bool = true, uploadOnCellular: Swift.Bool = true, privacyPolicyUrl: Swift.String = "", locationAccuracyFloorMeters: Swift.Double = HubbleGatewayConfig.defaultLocationAccuracyFloorMeters, movingFreshnessSeconds: Foundation.TimeInterval = HubbleGatewayConfig.defaultMovingFreshnessSeconds, stationaryFreshnessSeconds: Foundation.TimeInterval = HubbleGatewayConfig.defaultStationaryFreshnessSeconds, additionalScanServiceUUIDs: [Swift.String] = [])
 }
 public enum InitializationState : Swift.String, Swift.Sendable {
   case notStarted
@@ -277,12 +298,17 @@ public struct UploadDiagnostics : Swift.Sendable, Swift.Codable {
   public let lastUploadAt: Foundation.Date?
   public let lastLocationsUploadAt: Foundation.Date?
   public let lastLogsUploadAt: Foundation.Date?
+  public let lastHeartbeatAt: Foundation.Date?
   public let lastUploadError: Swift.String?
   public let lastSuccessfulBatchSize: Swift.Int
   public let bytesUploadedLast24h: Swift.Int64
   public let skipUntil: Foundation.Date?
-  public init(pendingPackets: Swift.Int, uploadingPackets: Swift.Int, failedPackets: Swift.Int, pendingLocations: Swift.Int, uploadingLocations: Swift.Int = 0, failedLocations: Swift.Int = 0, lastUploadAt: Foundation.Date?, lastLocationsUploadAt: Foundation.Date? = nil, lastLogsUploadAt: Foundation.Date? = nil, lastUploadError: Swift.String?, lastSuccessfulBatchSize: Swift.Int, bytesUploadedLast24h: Swift.Int64, skipUntil: Foundation.Date? = nil)
+  public let multiPayloadAdvertisements: Swift.Int
+  public let strippedPayloadAdvertisements: Swift.Int
+  public init(pendingPackets: Swift.Int, uploadingPackets: Swift.Int, failedPackets: Swift.Int, pendingLocations: Swift.Int, uploadingLocations: Swift.Int = 0, failedLocations: Swift.Int = 0, lastUploadAt: Foundation.Date?, lastLocationsUploadAt: Foundation.Date? = nil, lastLogsUploadAt: Foundation.Date? = nil, lastHeartbeatAt: Foundation.Date? = nil, lastUploadError: Swift.String?, lastSuccessfulBatchSize: Swift.Int, bytesUploadedLast24h: Swift.Int64, skipUntil: Foundation.Date? = nil, multiPayloadAdvertisements: Swift.Int = 0, strippedPayloadAdvertisements: Swift.Int = 0)
   public func encode(to encoder: any Swift.Encoder) throws
+}
+extension HubbleGatewaySDK.UploadDiagnostics {
   public init(from decoder: any Swift.Decoder) throws
 }
 public struct ScanStartResult : Swift.Sendable, Swift.Equatable {
@@ -307,6 +333,8 @@ public struct ScanStartResult : Swift.Sendable, Swift.Equatable {
 }
 extension HubbleGatewaySDK.GatewayLogEntry.Level : Swift.Hashable {}
 extension HubbleGatewaySDK.GatewayLogEntry.Level : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.GatewayOperatingMode : Swift.Hashable {}
+extension HubbleGatewaySDK.GatewayOperatingMode : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.GatewayPermissionRequirement.Kind : Swift.Hashable {}
 extension HubbleGatewaySDK.GatewayPermissionRequirement.Kind : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.GatewayPermissions : Swift.Sendable {}

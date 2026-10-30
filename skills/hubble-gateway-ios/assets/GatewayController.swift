@@ -14,6 +14,9 @@ import UIKit
 /// - Bridges ``ScanListener`` callbacks onto the `@MainActor` and maintains
 ///   a deduped ``DiscoveredDevice`` list keyed on `serviceData` (the
 ///   peripheral identifier rotates with the beacon's advertised address).
+/// - Coalesces that list: listener callbacks arrive per raw sighting, so
+///   they only touch an index, and the observable array is republished on a
+///   500 ms coalescing window rather than once per callback.
 ///
 /// Anything UI-flow related (alerts, blocker text, text-field state) lives
 /// in ``AppModel`` next door — keep that boundary when adopting.
@@ -35,18 +38,30 @@ final class GatewayController {
     // MARK: - Derived state
 
     private(set) var discoveredDevices: [DiscoveredDevice] = []
-    private var deviceIndex: [Data: DiscoveredDevice] = [:]
+    /// Where sightings actually land; ``discoveredDevices`` is republished
+    /// from it once per coalescing window. Deliberately unbounded — the sample keeps
+    /// every device it has ever seen, and the list is re-sorted in full on
+    /// each republish. A product screen wants a TTL or a cap here.
+    @ObservationIgnored private var deviceIndex: [Data: DiscoveredDevice] = [:]
+    /// Set by ``ingest(_:)``, cleared by ``republishDevicesIfNeeded()``.
+    @ObservationIgnored private var devicesNeedRepublish = false
 
     // MARK: - Internals
 
-    private var pollTask: Task<Void, Never>?
-    private var foregroundObserver: NSObjectProtocol?
-    private var scanCollector: ScanCollector?
+    // `@Observable` tracks every stored property, private ones included, so
+    // the internals below are opted out: only `discoveredDevices` and the
+    // state mirrors above are meant to invalidate a view. Without this, the
+    // per-sighting path pays observation bookkeeping nobody reads.
+    @ObservationIgnored private var pollTask: Task<Void, Never>?
+    @ObservationIgnored private var republishTask: Task<Void, Never>?
+    @ObservationIgnored private var foregroundObserver: NSObjectProtocol?
+    @ObservationIgnored private var scanCollector: ScanCollector?
     /// One `AsyncStream.Continuation` per active subscriber to
     /// ``discoveries()``. Callers get an independent stream each — the
     /// SDK's `ScanListener` is a single-fan-in source, so this multiplex
     /// gives multiple SwiftUI views / analytics tasks independent views
     /// of the same event feed without stealing from each other.
+    @ObservationIgnored
     private var discoveryContinuations: [UUID: AsyncStream<GatewayScanResult>.Continuation] = [:]
 
     init() {
@@ -98,6 +113,7 @@ final class GatewayController {
         HubbleGateway.shared.deleteAllData()
         deviceIndex = [:]
         discoveredDevices = []
+        devicesNeedRepublish = false
         refresh()
     }
 
@@ -108,6 +124,7 @@ final class GatewayController {
     func clearDiscoveredDevices() {
         deviceIndex = [:]
         discoveredDevices = []
+        devicesNeedRepublish = false
     }
 
     func registerNow() async throws {
@@ -193,6 +210,20 @@ final class GatewayController {
         scanCollector = collector
     }
 
+    /// Called once per sighting the SDK's scanner emitted. An advertisement
+    /// carrying service data for two of Hubble's own services still yields
+    /// one callback, not two; a host scan-only service the same
+    /// advertisement matched adds one on top. The SDK notifies
+    /// listeners above its own dedup, and the foreground scan runs with
+    /// duplicates allowed, so each nearby beacon lands several calls per
+    /// second on the main actor and the total scales with how many beacons
+    /// are in range.
+    ///
+    /// This method therefore does the cheap thing only: update the index and
+    /// set `devicesNeedRepublish`. The observable `discoveredDevices` array
+    /// is re-sorted and republished at most once per `republishInterval`
+    /// from ``scheduleRepublish()``, so SwiftUI re-renders on a fixed budget
+    /// instead of once per sighting.
     private func ingest(_ result: GatewayScanResult) {
         // Fan out to every active AsyncStream subscriber. Yields are
         // cheap; the bufferingPolicy on each stream drops oldest events
@@ -222,17 +253,57 @@ final class GatewayController {
                 sightingCount: 1
             )
         }
+        devicesNeedRepublish = true
+        scheduleRepublish()
+    }
+
+    /// Opens a fixed republish window, if one is not already open.
+    ///
+    /// This is a throttle, not a debounce: the window starts at the first
+    /// sighting and later ones fold into it rather than pushing it back.
+    /// Resetting the timer on every sighting — the usual debounce shape —
+    /// would starve exactly when it matters, because a beacon in range never
+    /// stops arriving and the list would never republish at all.
+    ///
+    /// So a busy room costs two re-renders per second whatever the beacon
+    /// count, and a quiet room costs nothing: nothing is armed when no
+    /// sighting arrives, which a free-running ticker could not say. The
+    /// trade is that the first sighting after a lull waits the full window.
+    private func scheduleRepublish() {
+        guard republishTask == nil else { return }
+        republishTask = Task { @MainActor [weak self] in
+            try? await Task.sleep(for: Self.republishInterval)
+            guard let self else { return }
+            self.republishTask = nil
+            self.republishDevicesIfNeeded()
+        }
+    }
+
+    /// Publishes the accumulated index to the observable array if anything
+    /// changed since the last republish. Called from ``scheduleRepublish()``.
+    private func republishDevicesIfNeeded() {
+        guard devicesNeedRepublish else { return }
+        devicesNeedRepublish = false
         discoveredDevices = deviceIndex.values.sorted { $0.lastSeen > $1.lastSeen }
     }
 
     // MARK: - Polling + lifecycle
 
+    /// How long the republish window stays open once a sighting opens it,
+    /// before the list is re-sorted and republished. Anything in 0.5–1 s keeps the list feeling live
+    /// while decoupling re-renders from the advertisement rate.
+    private static let republishInterval: Duration = .milliseconds(500)
+    /// How often the SDK state mirrors are refreshed. Independent of the
+    /// republish above: this one polls state the SDK does not push.
+    private static let refreshInterval: Duration = .seconds(5)
+
     private func startPolling() {
         pollTask?.cancel()
         pollTask = Task { @MainActor [weak self] in
             while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(5))
-                self?.refresh()
+                try? await Task.sleep(for: Self.refreshInterval)
+                guard let self else { return }
+                self.refresh()
             }
         }
     }

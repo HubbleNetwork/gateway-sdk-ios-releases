@@ -2,12 +2,4 @@ Hubble SDK License
 
 Copyright (c) Hubble Network, Inc. All rights reserved.
 
-This software is licensed, not sold. Use of the Hubble Gateway SDK is
-governed by the Hubble SDK License, available at:
-
-    https://hubble.com/sdk-license
-
-This repository's source code is made available to authorized licensees
-and Hubble Network personnel for development and integration purposes.
-It is not open-source software and may not be redistributed except as
-permitted under the Hubble SDK License.
+Hubble IP License Grant. Subject to the terms and conditions of this Agreement, Hubble grants Partner a limited, non-exclusive, non-transferable, and royalty-free license during the term to the Hubble IP solely in connection with the Partner BLE Network and other products or services mutually approved by both Parties in writing (the “Hubble License Grant”). The Hubble License Grant shall include the right to: (i) install, use and reproduce a reasonable number of copies of the Hubble Embedded SDK and other software included in the Hubble IP in source code form to develop, test, and debug Partner related devices, smartphone apps and backend, (ii) compile, modify, and prepare derivative works of, any sample computer source code included in the Hubble IP to develop, test, and debug Partner related devices, smartphone apps and backend; (iii) use and make calls to the Hubble API to develop and maintain Partner devices, smartphone apps and backend; and (iv) access and use the services provided by the Hubble Terrestrial Network and the Hubble Developer Platform, in each case of clauses (i) through (iv) for the limited purpose of enabling Partner to create interoperability between its products or services and the Hubble Terrestrial Network, the Hubble Developer Platform, and the Hubble Embedded SDK. Partner shall not sublicense, sell, assign, rent, lease, transfer, or otherwise grant rights to any third party with respect to the Hubble IP without the prior written consent of Hubble.

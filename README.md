@@ -1,9 +1,9 @@
 # HubbleGatewaySDK (iOS)
 
-A passive background BLE gateway that scans for Hubble (`0xFCA6`) and Tile
-(`0xFEED`) advertisements, pairs them with the device's location, and
-uploads batches on a **60 s to 15 min** cadence (foreground / moving vs.
-background stationary).
+A passive background BLE gateway that scans for Hubble (`0xFCA6`)
+advertisements (and Tile `0xFEED` advertisements for Tile-enabled SDK keys),
+pairs them with the device's location, and uploads batches on a
+**60 s to 15 min** cadence (foreground / moving vs. background stationary).
 
 ### The Hubble service UUID
 
@@ -18,8 +18,8 @@ It's listed in the official [Bluetooth SIG 16-bit UUID assigned numbers
 register](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf)
 (page 119).
 
-The SDK also scans for Tile's service UUID (`0xFEED`) by default, for
-interoperability with the Tile network.
+For SDK keys enabled for the Tile network, the SDK also scans for Tile's
+service UUID (`0xFEED`).
 
 ## Requirements
 
@@ -42,7 +42,7 @@ SDK keys (`hsk_...`) are currently issued manually. To obtain one:
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.6.5")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.7.0")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**
@@ -140,8 +140,9 @@ import HubbleGatewaySDK
 struct MyApp: App {
     init() {
         // Optional debug preflight: catches mis-typed BGTask IDs and
-        // missing Info.plist keys as an assertionFailure instead of
-        // a runtime NSException on release.
+        // missing Info.plist keys as an assertionFailure, instead of
+        // letting a release build register nothing and silently never
+        // run a background task.
         #if DEBUG
         let check = HubbleGateway.validateIntegration()
         if !check.isValid { assertionFailure(check.description) }
@@ -153,6 +154,10 @@ struct MyApp: App {
         // was active before the kill, the SDK auto-runs start(config:)
         // + startScanning() from this closure — no user interaction.
         // Return nil to skip auto-start (e.g. not authenticated yet).
+        // Build the SAME config here as at your foreground start() —
+        // including any additionalScanServiceUUIDs. This closure is what
+        // a background relaunch starts from, so a UUID you leave out here
+        // is a UUID the SDK stops hearing after iOS kills the app.
         HubbleGateway.registerBackgroundTasks {
             HubbleGatewayConfig(sdkKey: "YOUR_SDK_KEY")
         }
@@ -228,6 +233,17 @@ prompt has been consumed), and
 Motion is optional — when not granted the SDK falls back to
 CoreLocation-speed motion detection.
 
+With When-In-Use the SDK works fully while your app is foregrounded:
+sightings are scanned, paired with a fresh location fix and uploaded.
+Always is what adds the background. `startScanning()` reports which of the
+two you are in — `.startedForegroundOnly` carries `.locationAlways` in
+`missingPermissions` while still having started — and
+`HubbleGateway.shared.operatingMode` answers the same question at any time
+afterwards: `.full`, `.foregroundOnly` or `.notOperational`. Gate your UI on
+that rather than on a pair of booleans; `isFullyOperational` is kept as
+shorthand for `== .full` and deliberately still reads `false` in
+foreground-only mode.
+
 **Need a snapshot without prompting?**
 `GatewayPermissions.currentStatus()` returns the current
 `PermissionStatus` synchronously.
@@ -235,6 +251,19 @@ CoreLocation-speed motion detection.
 `[GatewayPermissionRequirement]` (kind, rationale, required flag,
 granted state) that's convenient for rendering a custom permissions
 screen.
+
+Only Bluetooth and Location When-In-Use carry `required: true`.
+`locationAlways` is reported as **`required: false`** — not because
+background operation is unimportant, but because the gateway is a
+working gateway without it: with When-In-Use the SDK scans, pairs
+sightings with a location fix and uploads them for as long as your app
+is on screen (`operatingMode == .foregroundOnly`). What Always buys is
+the background, which is a product decision rather than a technical
+precondition, so a checklist built on the `required` flag should present
+Always as an upgrade and not as a blocker that stops the user before
+they ever reach a working integration. `motion` is `required: false` for
+the same kind of reason — the SDK falls back to speed-based motion
+detection.
 
 **Granted a permission later** (user came back from Settings while the
 app was running)? Just call `startScanning()` again — the SDK also
@@ -248,11 +277,30 @@ The SDK emits every raw beacon sighting via a `ScanListener`. Callbacks
 land on the main queue; the SDK holds listeners weakly, so keep a
 strong reference yourself.
 
+Delivery is **per raw advertisement, before dedup**. The SDK's dedup window
+applies to the rows it stores and uploads, never to what a listener sees:
+nothing is merged or suppressed on the way to a `ScanListener`. An
+advertisement yields **at most one** sighting of a service the SDK uploads —
+`0xFCA6` first, then any other Hubble service the SDK uploads — so for
+Hubble's own services that is one callback per advertisement even when the
+advertisement carries service data for two of them. A scan-only service the
+host added via `additionalScanServiceUUIDs` is delivered on top of that, so
+an advertisement matching both fires twice.
+
+In the foreground the scan runs with duplicates allowed, so each nearby
+beacon produces **several main-queue callbacks per second**, and the total
+scales with how many beacons are in range — the SDK's own foreground
+profiling measured roughly 4 ingest callbacks per second (~240/min) in
+aggregate. Treat that as an order of magnitude, not a per-beacon rate.
+**Coalesce before touching UI**: accumulate into a dictionary keyed on
+`serviceData` and render on a 500 ms–1 s timer rather than driving view
+state from the callback.
+
 ```swift
 final class DevicesFeed: ScanListener {
     func onScanResult(_ result: GatewayScanResult) {
         // result.peripheralIdentifier: UUID
-        // result.serviceUUID:          CBUUID  (FCA6 Hubble, FEED Tile)
+        // result.serviceUUID:          CBUUID  (FCA6 Hubble, FEED Tile, or another scanned service)
         // result.serviceData:          Data
         // result.rssi:                 Int
         // result.timestamp:            Date
@@ -289,7 +337,7 @@ detaches it.
 ## Configuration
 
 `HubbleGatewayConfig(sdkKey:)` is the whole surface for typical
-integrators. The public initializer takes only four fields — all but
+integrators. The public initializer takes seven fields — all but
 `sdkKey` are optional and have sensible defaults:
 
 ```swift
@@ -297,7 +345,12 @@ let config = HubbleGatewayConfig(
     sdkKey: "hsk_…",
     respectLowPowerMode: true,
     uploadOnCellular: false,          // defer uploads until Wi-Fi
-    privacyPolicyUrl: "https://your-app.com/privacy"
+    privacyPolicyUrl: "https://your-app.com/privacy",
+    // Location-pairing thresholds — defaults shown; leave them out
+    // unless your deployment needs something different.
+    locationAccuracyFloorMeters: 50,
+    movingFreshnessSeconds: 30,
+    stationaryFreshnessSeconds: 30 * 60
 )
 ```
 
@@ -307,6 +360,14 @@ let config = HubbleGatewayConfig(
 | `respectLowPowerMode` | `true` | Skip the upload cycle when iOS Low Power Mode is on. |
 | `uploadOnCellular` | `true` | Set `false` to defer uploads until Wi-Fi. Server may tighten this but not loosen it. |
 | `privacyPolicyUrl` | `""` | Surface it from your own UI — the SDK stores but doesn't render. |
+| `locationAccuracyFloorMeters` | `50` | Fixes with a worse `horizontalAccuracy` are not paired with a sighting. |
+| `movingFreshnessSeconds` | `30` | Oldest fix that may be paired while the device is moving. |
+| `stationaryFreshnessSeconds` | `1800` | Oldest fix that may be paired while the device is stationary. Shorten it (a fleet might use 5 min) so a sighting after departure isn't pinned to the parking spot. |
+
+The three location thresholds must be finite and greater than zero; any
+other value is logged and the default used instead. See
+[Advanced tuning](#advanced-tuning-internal) for why these three are
+exposed and the neighbouring knobs are not.
 
 The API endpoint is **baked into the SDK at compile time**
 (`HubbleGatewayConfig.productionAPIBaseURL`) — third-party integrators
@@ -314,22 +375,43 @@ always hit production. There is no runtime override.
 
 ### Advanced tuning (internal)
 
-Scan/upload cadence, dedup windows, packet batch size, location-pairing
-thresholds and retention are **not** part of the public initializer.
-They live in an internal `AdvancedTuning` value (`config.tuning`),
-matching the Android SDK. This is deliberate: several are
-server-overridable at registration (so a locally-set value is only a
-fallback the backend can outrank), and the rest directly govern data
-quality and battery, so they aren't exposed as third-party knobs.
+Scan/upload cadence, dedup windows, packet batch size and retention are
+**not** part of the public initializer. They live in an internal
+`AdvancedTuning` value (`config.tuning`), matching the Android SDK. This
+is deliberate: they are tuned as a fleet rather than per integration,
+and exposing them as third-party knobs would fight that.
+
+The location-pairing thresholds (accuracy floor, moving and stationary
+freshness) are the exception: `HubbleGatewayConfig`'s initializer exposes
+them directly, with defaults matching `AdvancedTuning`'s (50 m / 30 s /
+30 min). Unlike the knobs above, nothing overrides these — whatever the host sets
+here is final. They're exposed because the right
+threshold is genuinely use-case-dependent (a warehouse deployment may
+tolerate 5-minute-old, 100 m fixes; a fleet tracker needs 10-second,
+20 m ones) in a way cadence/batch/dedup aren't.
 Defaults include a **60 s / 15 min** upload cadence (active / stationary),
 **500-packet** batches, **30 s / 5 min** dedup windows (moving /
 stationary), and **7-day** on-device retention (uploaded rows pruned
 after 7 days; un-uploaded rows dropped after `2 ×` = 14 days).
 
-Server-driven overrides — delivered at registration and on each
-heartbeat — can retune the upload intervals, packet batch size, dedup
-windows, and cellular gating at runtime, with **no app update
-required**.
+The one scan knob on the public initializer is `additionalScanServiceUUIDs`:
+extra service UUIDs the SDK should hear, given as 16-, 32- or 128-bit
+strings. They are **scan-only**. Advertisements that match reach your
+`ScanListener` like any other sighting. Adding a UUID here never makes the
+SDK store or upload it, request a location fix for it or start an upload
+cycle on its account, so adding one does not change what Hubble receives
+or what the scan costs in network and battery.
+`0xFCA6` is always scanned. It and the other services your SDK key is
+enabled for (such as Tile's `0xFEED`) are the only ones the SDK stores and
+uploads — anything else the scan matches stays listeners-only.
+Malformed entries are ignored with a log line; duplicates are dropped. At most
+**6** extra UUIDs are accepted (hardware scan-filter slots are limited per
+chipset, and the SDK already spends some on its own services); anything past that
+is dropped with a log line rather than silently bloating the filter. Typical
+use: a service a tag advertises only when it needs attention from the host
+app, so the app can react without running a second scanner. Because iOS
+background scanning requires an explicit service filter, this is also the
+only way such a service can wake the app while it is suspended.
 
 ## Understanding log messages
 
@@ -385,17 +467,26 @@ accordingly.
 | `ingest svc=… bytes=… rssi=… motion=… loc=ok` | `.debug` | A scan result was stored with a usable location fix attached. |
 | `ingest … loc=nil` | `.debug` | No cached location fix exists yet at all — packet is held with `location_json = NULL`, excluded from upload until a fix arrives. |
 | `ingest … loc=stale` | `.debug` | Cached fix is older than the backfill window (30 min stationary / 30 s moving) — packet held, and a one-shot fresh-fix request is triggered. |
+| `ingest … loc=invalid` | `.debug` | Cached fix has a negative `horizontalAccuracy` (CoreLocation's invalid-position sentinel) — packet held. |
 | `ingest … loc=inaccurate` | `.debug` | Cached fix exists but exceeds the 50 m accuracy threshold — packet held. |
 | `ingest … loc=future` | `.debug` | Cached fix has a timestamp in the future (clock skew) — rejected, packet held. |
-| `no eligible packets (pending=N)` | `.notice` | Upload cycle ran but found nothing to send — expected if BLE hasn't detected anything, or if `N` packets are pending a location fix (cross-reference the `ingest … loc=` lines above). |
+| `no eligible packets (pending=N, noLocation=M)` | `.notice` | Upload cycle ran but found nothing to send. `M` is how many of the `N` pending rows are held back *solely* by the `location_json IS NOT NULL` claim filter. `M` ≈ `N` cycle after cycle while BLE is finding things means the problem is location pairing, not the uploader — cross-reference the `ingest … loc=` lines above for which gate rejected the fix. |
 | `no eligible locations (pending=…, uploading=…, failed=…) — <reason>` | `.notice` | Same idea for the independent `/locations` upload stream; `<reason>` spells out why (no fixes captured yet, already uploaded, in backoff, etc). |
 | `posting N packets` / `posting N locations` | `.notice` | A batch is being sent to the server. |
+| `Upload failed [stage]: <class>` | `.error` / `.notice` | An upload stage failed; `stage` is `packets`/`locations`/`logs`/`heartbeat`/`cycle` and `<class>` the error class (`urlerror -1001`, `http 503`, `token revoked`, …). Error-level the first time a stage fails with a given class; a repeat of the same class on that stage stays `.notice` until it recovers or the class changes. |
+| `Backing off N s after failure #K` / `Upload cycle recovered — clearing backoff` | `.info` | The cycle-level backoff being armed after a failing cycle, and cleared by the first clean one. |
 | `HubbleGateway ready` / `... (dormant — data collection disabled)` | `.notice` | SDK finished `start()`; the dormant variant means `isDataCollectionEnabled == false`. |
 | `auto-started from persisted scanning intent` | `.notice` | Process was killed and relaunched by iOS; the SDK resumed scanning on its own because a scanning intent was persisted from before the kill. |
 | `Motion state -> moving/stationary (natural=…, override=…)` | `.notice` | Motion classification changed — drives location accuracy/cadence and dedup window width. |
+| `Priming location fix (start_scanning)` / `(will_enter_foreground)` | `.info` | The SDK asked for a fix outside the per-sighting path, because `startScanning()` ran or the app came back on screen. Only logged when a request actually fired — a fresh enough cache, a refresh already in flight, or a recent failure all suppress it silently. |
+| `One-shot fresh fix delivered but still above the accuracy floor — backing off` | `.notice` | The SDK asked for a precise fix, got one, and it is still too imprecise to pair with a packet (typically indoors). Further requests pause briefly rather than repeating per sighting. Persistent occurrences mean the device cannot currently produce a fix good enough to upload with. |
+| `One-shot fresh fix was coarser than the cached fix — keeping the cache, backing off` | `.notice` | Same situation, other side: the fix that came back is wider than the one already cached, so the SDK keeps the cached one and pauses before asking again. Also typical indoors, and likewise not an error. |
 | `Triggering one-shot fresh fix (cached older than Ns)` / `One-shot fresh fix delivered` | `.notice` | The stale-fix recovery path: a cached fix aged out, so the SDK requested (and then received) a fresh one-off `CLLocation` update outside the normal continuous/SLC stream. |
 | `Authorization changed to N` / `Cannot start — authorization=N` | `.info` / `.error` | CoreLocation authorization status changed; see [`CLAuthorizationStatus`](https://developer.apple.com/documentation/corelocation/clauthorizationstatus) for what `N` maps to. |
 | `Authorization restored — re-armed significant-change monitoring` | `.notice` | Location permission was revoked and re-granted while the gateway was running; the SDK re-armed its location wake source automatically — no action needed. |
+| `background refresh/processing task not scheduled — …` | `.error` | The SDK could not schedule a background task because the host app's integration is incomplete: the task identifier is missing from `BGTaskSchedulerPermittedIdentifiers`, `registerBackgroundTasks()` did not run before launch finished, or iOS rejected the submit. That task will not run on its BGTask schedule until it is fixed; other tasks, and uploads triggered by foreground activity or the BLE/location wake paths, are unaffected. The line names the one fix that applies; `validateIntegration()` can confirm a missing Info.plist key, but it reads the Info.plist only, so it will not flag a missing `registerBackgroundTasks()` call. Reported once per identifier per cause per launch, not on every attempt. |
+| `background … task not scheduled — background scheduling is unavailable on this device` | `.notice` | Not an integration problem: Background App Refresh is switched off for the app, the device is restricted, or this is the Simulator. Nothing to fix in code. |
+| `iOS declined BGTask registration — …` | `.error` | iOS declined to register a handler at launch — either the SDK's identifiers are not declared in `BGTaskSchedulerPermittedIdentifiers`, or something else registered them first. Emitted once, at `registerBackgroundTasks()`. |
 | Any `Log.error` line (network/decode/DB failures) | `.error` | Always persisted regardless of level — these are the only lines guaranteed to survive today without the `.notice` promotions above. |
 
 The `ingest …` lines are `.debug`: they fire once per BLE advertisement, so
@@ -424,6 +515,19 @@ HubbleGateway.shared.setDataCollectionEnabled(false)
 // call above for a full opt-out.
 HubbleGateway.shared.deleteAllData()
 ```
+
+The opt-out is a gate, not just a stop: while it is off, `startScanning()`
+returns `.dataCollectionDisabled` without starting anything, and discovered
+advertisements are dropped before they are stored, uploaded, or delivered
+to a `ScanListener`. Turning it back on re-arms the SDK but does **not**
+resume scanning by itself — call `startScanning()` when the user opts back
+in.
+
+Note that `stopScanning()` clears the *persisted* scanning intent, so
+background auto-resume after process death stays off until `startScanning()`
+is called again. Treat it as a user-intent switch, not a screen-lifecycle
+pause: a UI that stops needing results should call
+`removeScanListener(_:)` and leave the scan running.
 
 `HubbleGateway.shared.stop()` fully unwinds the SDK back to
 `.notStarted` — useful for tests or when you need to swap config at
@@ -487,4 +591,6 @@ rejects unnecessary prompts (Guideline 5.1.2).
 
 ## License
 
-Proprietary — Hubble Network, Inc.
+Proprietary — Hubble Network, Inc. Licensed under the Hubble SDK License — see [LICENSE](LICENSE).
+
+Third-party notices: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

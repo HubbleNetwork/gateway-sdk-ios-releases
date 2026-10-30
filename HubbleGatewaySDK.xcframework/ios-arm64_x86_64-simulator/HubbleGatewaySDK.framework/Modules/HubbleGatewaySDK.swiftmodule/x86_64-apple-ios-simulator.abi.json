@@ -76,6 +76,20 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreLocation",
+        "printedName": "CoreLocation",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "Import",
         "name": "CoreLocation",
         "printedName": "CoreLocation",
         "declKind": "Import",
@@ -296,6 +310,13 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "Import",
         "name": "Network",
         "printedName": "Network",
         "declKind": "Import",
@@ -314,6 +335,33 @@
         "printedName": "Foundation",
         "declKind": "Import",
         "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK",
+        "declAttributes": [
+          "Preconcurrency"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK",
+        "declAttributes": [
+          "Preconcurrency"
+        ]
       },
       {
         "kind": "Import",
@@ -1661,6 +1709,377 @@
             "printedName": "SendableMetatype",
             "usr": "s:s16SendableMetatypeP",
             "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "GatewayOperatingMode",
+        "printedName": "GatewayOperatingMode",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "full",
+            "printedName": "full",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(HubbleGatewaySDK.GatewayOperatingMode.Type) -> HubbleGatewaySDK.GatewayOperatingMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GatewayOperatingMode",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                    "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "GatewayOperatingMode",
+                        "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                        "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:16HubbleGatewaySDK0B13OperatingModeO4fullyA2CmF",
+            "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO4fullyA2CmF",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "foregroundOnly",
+            "printedName": "foregroundOnly",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(HubbleGatewaySDK.GatewayOperatingMode.Type) -> HubbleGatewaySDK.GatewayOperatingMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GatewayOperatingMode",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                    "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "GatewayOperatingMode",
+                        "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                        "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:16HubbleGatewaySDK0B13OperatingModeO14foregroundOnlyyA2CmF",
+            "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO14foregroundOnlyyA2CmF",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "notOperational",
+            "printedName": "notOperational",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(HubbleGatewaySDK.GatewayOperatingMode.Type) -> HubbleGatewaySDK.GatewayOperatingMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GatewayOperatingMode",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                    "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "GatewayOperatingMode",
+                        "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                        "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:16HubbleGatewaySDK0B13OperatingModeO14notOperationalyA2CmF",
+            "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO14notOperationalyA2CmF",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HubbleGatewaySDK.GatewayOperatingMode?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GatewayOperatingMode",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                    "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:16HubbleGatewaySDK0B13OperatingModeO8rawValueACSgSS_tcfc",
+            "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO8rawValueACSgSS_tcfc",
+            "moduleName": "HubbleGatewaySDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0B13OperatingModeO8rawValueSSvp",
+            "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO8rawValueSSvp",
+            "moduleName": "HubbleGatewaySDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0B13OperatingModeO8rawValueSSvg",
+                "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO8rawValueSSvg",
+                "moduleName": "HubbleGatewaySDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "allCases",
+            "printedName": "allCases",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[HubbleGatewaySDK.GatewayOperatingMode]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GatewayOperatingMode",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                    "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0B13OperatingModeO8allCasesSayACGvpZ",
+            "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO8allCasesSayACGvpZ",
+            "moduleName": "HubbleGatewaySDK",
+            "static": true,
+            "implicit": true,
+            "declAttributes": [
+              "Nonisolated"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HubbleGatewaySDK.GatewayOperatingMode]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "GatewayOperatingMode",
+                        "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                        "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0B13OperatingModeO8allCasesSayACGvgZ",
+                "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO8allCasesSayACGvgZ",
+                "moduleName": "HubbleGatewaySDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:16HubbleGatewaySDK0B13OperatingModeO",
+        "mangledName": "$s16HubbleGatewaySDK0B13OperatingModeO",
+        "moduleName": "HubbleGatewaySDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CaseIterable",
+            "printedName": "CaseIterable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "AllCases",
+                "printedName": "AllCases",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[HubbleGatewaySDK.GatewayOperatingMode]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "GatewayOperatingMode",
+                        "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                        "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s12CaseIterableP",
+            "mangledName": "$ss12CaseIterableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
           }
         ]
       },
@@ -4106,6 +4525,13 @@
       },
       {
         "kind": "Import",
+        "name": "CoreLocation",
+        "printedName": "CoreLocation",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -4302,6 +4728,52 @@
                 "declKind": "Accessor",
                 "usr": "s:16HubbleGatewaySDK0aB0C18isFullyOperationalSbvg",
                 "mangledName": "$s16HubbleGatewaySDK0aB0C18isFullyOperationalSbvg",
+                "moduleName": "HubbleGatewaySDK",
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "operatingMode",
+            "printedName": "operatingMode",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "GatewayOperatingMode",
+                "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0aB0C13operatingModeAA0b9OperatingE0Ovp",
+            "mangledName": "$s16HubbleGatewaySDK0aB0C13operatingModeAA0b9OperatingE0Ovp",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GatewayOperatingMode",
+                    "printedName": "HubbleGatewaySDK.GatewayOperatingMode",
+                    "usr": "s:16HubbleGatewaySDK0B13OperatingModeO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0aB0C13operatingModeAA0b9OperatingE0Ovg",
+                "mangledName": "$s16HubbleGatewaySDK0aB0C13operatingModeAA0b9OperatingE0Ovg",
                 "moduleName": "HubbleGatewaySDK",
                 "declAttributes": [
                   "Final"
@@ -5203,6 +5675,16 @@
         "moduleName": "HubbleGatewaySDK"
       },
       {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "HubbleGatewaySDK",
+        "declAttributes": [
+          "Preconcurrency"
+        ]
+      },
+      {
         "kind": "TypeDecl",
         "name": "HubbleGatewayConfig",
         "printedName": "HubbleGatewayConfig",
@@ -5389,6 +5871,67 @@
           },
           {
             "kind": "Var",
+            "name": "additionalScanServiceUUIDs",
+            "printedName": "additionalScanServiceUUIDs",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CoreBluetooth.CBUUID]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CBUUID",
+                    "printedName": "CoreBluetooth.CBUUID",
+                    "usr": "c:objc(cs)CBUUID"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0aB6ConfigV26additionalScanServiceUUIDsSaySo6CBUUIDCGvp",
+            "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV26additionalScanServiceUUIDsSaySo6CBUUIDCGvp",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[CoreBluetooth.CBUUID]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CBUUID",
+                        "printedName": "CoreBluetooth.CBUUID",
+                        "usr": "c:objc(cs)CBUUID"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0aB6ConfigV26additionalScanServiceUUIDsSaySo6CBUUIDCGvg",
+                "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV26additionalScanServiceUUIDsSaySo6CBUUIDCGvg",
+                "moduleName": "HubbleGatewaySDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "productionAPIBaseURL",
             "printedName": "productionAPIBaseURL",
             "children": [
@@ -5436,9 +5979,151 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "defaultLocationAccuracyFloorMeters",
+            "printedName": "defaultLocationAccuracyFloorMeters",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0aB6ConfigV34defaultLocationAccuracyFloorMetersSdvpZ",
+            "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV34defaultLocationAccuracyFloorMetersSdvpZ",
+            "moduleName": "HubbleGatewaySDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0aB6ConfigV34defaultLocationAccuracyFloorMetersSdvgZ",
+                "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV34defaultLocationAccuracyFloorMetersSdvgZ",
+                "moduleName": "HubbleGatewaySDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "defaultMovingFreshnessSeconds",
+            "printedName": "defaultMovingFreshnessSeconds",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0aB6ConfigV29defaultMovingFreshnessSecondsSdvpZ",
+            "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV29defaultMovingFreshnessSecondsSdvpZ",
+            "moduleName": "HubbleGatewaySDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0aB6ConfigV29defaultMovingFreshnessSecondsSdvgZ",
+                "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV29defaultMovingFreshnessSecondsSdvgZ",
+                "moduleName": "HubbleGatewaySDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "defaultStationaryFreshnessSeconds",
+            "printedName": "defaultStationaryFreshnessSeconds",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK0aB6ConfigV33defaultStationaryFreshnessSecondsSdvpZ",
+            "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV33defaultStationaryFreshnessSecondsSdvpZ",
+            "moduleName": "HubbleGatewaySDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK0aB6ConfigV33defaultStationaryFreshnessSecondsSdvgZ",
+                "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV33defaultStationaryFreshnessSecondsSdvgZ",
+                "moduleName": "HubbleGatewaySDK",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(sdkKey:respectLowPowerMode:uploadOnCellular:privacyPolicyUrl:)",
+            "printedName": "init(sdkKey:respectLowPowerMode:uploadOnCellular:privacyPolicyUrl:locationAccuracyFloorMeters:movingFreshnessSeconds:stationaryFreshnessSeconds:additionalScanServiceUUIDs:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -5472,14 +6157,51 @@
                 "printedName": "Swift.String",
                 "hasDefaultArg": true,
                 "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "hasDefaultArg": true,
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "hasDefaultArg": true,
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "hasDefaultArg": true,
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sa"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:16HubbleGatewaySDK0aB6ConfigV6sdkKey19respectLowPowerMode16uploadOnCellular16privacyPolicyUrlACSS_S2bSStcfc",
-            "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV6sdkKey19respectLowPowerMode16uploadOnCellular16privacyPolicyUrlACSS_S2bSStcfc",
+            "usr": "s:16HubbleGatewaySDK0aB6ConfigV6sdkKey19respectLowPowerMode16uploadOnCellular16privacyPolicyUrl27locationAccuracyFloorMeters22movingFreshnessSeconds010stationaryvW026additionalScanServiceUUIDsACSS_S2bSSS3dSaySSGtcfc",
+            "mangledName": "$s16HubbleGatewaySDK0aB6ConfigV6sdkKey19respectLowPowerMode16uploadOnCellular16privacyPolicyUrl27locationAccuracyFloorMeters22movingFreshnessSeconds010stationaryvW026additionalScanServiceUUIDsACSS_S2bSSS3dSaySSGtcfc",
             "moduleName": "HubbleGatewaySDK",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "init_kind": "Designated"
           }
@@ -7497,13 +8219,6 @@
           },
           {
             "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
             "name": "Sendable",
             "printedName": "Sendable",
             "usr": "s:s8SendableP",
@@ -7529,6 +8244,13 @@
             "printedName": "Encodable",
             "usr": "s:SE",
             "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
           },
           {
             "kind": "Conformance",
@@ -8127,6 +8849,67 @@
           },
           {
             "kind": "Var",
+            "name": "lastHeartbeatAt",
+            "printedName": "lastHeartbeatAt",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV15lastHeartbeatAt10Foundation4DateVSgvp",
+            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV15lastHeartbeatAt10Foundation4DateVSgvp",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.Date?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Date",
+                        "printedName": "Foundation.Date",
+                        "usr": "s:10Foundation4DateV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV15lastHeartbeatAt10Foundation4DateVSgvg",
+                "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV15lastHeartbeatAt10Foundation4DateVSgvg",
+                "moduleName": "HubbleGatewaySDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "lastUploadError",
             "printedName": "lastUploadError",
             "children": [
@@ -8335,9 +9118,99 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "multiPayloadAdvertisements",
+            "printedName": "multiPayloadAdvertisements",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV26multiPayloadAdvertisementsSivp",
+            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV26multiPayloadAdvertisementsSivp",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV26multiPayloadAdvertisementsSivg",
+                "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV26multiPayloadAdvertisementsSivg",
+                "moduleName": "HubbleGatewaySDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "strippedPayloadAdvertisements",
+            "printedName": "strippedPayloadAdvertisements",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV29strippedPayloadAdvertisementsSivp",
+            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV29strippedPayloadAdvertisementsSivp",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV29strippedPayloadAdvertisementsSivg",
+                "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV29strippedPayloadAdvertisementsSivg",
+                "moduleName": "HubbleGatewaySDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(pendingPackets:uploadingPackets:failedPackets:pendingLocations:uploadingLocations:failedLocations:lastUploadAt:lastLocationsUploadAt:lastLogsUploadAt:lastUploadError:lastSuccessfulBatchSize:bytesUploadedLast24h:skipUntil:)",
+            "printedName": "init(pendingPackets:uploadingPackets:failedPackets:pendingLocations:uploadingLocations:failedLocations:lastUploadAt:lastLocationsUploadAt:lastLogsUploadAt:lastHeartbeatAt:lastUploadError:lastSuccessfulBatchSize:bytesUploadedLast24h:skipUntil:multiPayloadAdvertisements:strippedPayloadAdvertisements:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -8395,6 +9268,21 @@
                     "usr": "s:10Foundation4DateV"
                   }
                 ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "hasDefaultArg": true,
                 "usr": "s:Sq"
               },
               {
@@ -8467,41 +9355,29 @@
                 ],
                 "hasDefaultArg": true,
                 "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "hasDefaultArg": true,
+                "usr": "s:Si"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV14pendingPackets09uploadingG006failedG00F9Locations0hJ00iJ004lastD2At0kjdL00k4LogsdL00kD5Error0K19SuccessfulBatchSize20bytesUploadedLast24h9skipUntilACSi_S5i10Foundation4DateVSgA2TSSSgSis5Int64VATtcfc",
-            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV14pendingPackets09uploadingG006failedG00F9Locations0hJ00iJ004lastD2At0kjdL00k4LogsdL00kD5Error0K19SuccessfulBatchSize20bytesUploadedLast24h9skipUntilACSi_S5i10Foundation4DateVSgA2TSSSgSis5Int64VATtcfc",
+            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV14pendingPackets09uploadingG006failedG00F9Locations0hJ00iJ004lastD2At0kjdL00k4LogsdL00k9HeartbeatL00kD5Error0K19SuccessfulBatchSize20bytesUploadedLast24h9skipUntil26multiPayloadAdvertisements08strippedyZ0ACSi_S5i10Foundation4DateVSgA3WSSSgSis5Int64VAWS2itcfc",
+            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV14pendingPackets09uploadingG006failedG00F9Locations0hJ00iJ004lastD2At0kjdL00k4LogsdL00k9HeartbeatL00kD5Error0K19SuccessfulBatchSize20bytesUploadedLast24h9skipUntil26multiPayloadAdvertisements08strippedyZ0ACSi_S5i10Foundation4DateVSgA3WSSSgSis5Int64VAWS2itcfc",
             "moduleName": "HubbleGatewaySDK",
             "declAttributes": [
               "AccessControl"
             ],
-            "init_kind": "Designated"
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(from:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "UploadDiagnostics",
-                "printedName": "HubbleGatewaySDK.UploadDiagnostics",
-                "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Decoder",
-                "printedName": "any Swift.Decoder",
-                "usr": "s:s7DecoderP"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV4fromACs7Decoder_p_tKcfc",
-            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV4fromACs7Decoder_p_tKcfc",
-            "moduleName": "HubbleGatewaySDK",
-            "implicit": true,
-            "throwing": true,
             "init_kind": "Designated"
           },
           {
@@ -8528,6 +9404,36 @@
             "implicit": true,
             "throwing": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UploadDiagnostics",
+                "printedName": "HubbleGatewaySDK.UploadDiagnostics",
+                "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "any Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:16HubbleGatewaySDK17UploadDiagnosticsV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s16HubbleGatewaySDK17UploadDiagnosticsV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "HubbleGatewaySDK",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "init_kind": "Designated"
           }
         ],
         "declKind": "Struct",
@@ -9210,958 +10116,1618 @@
             "mangledName": "$ss16SendableMetatypeP"
           }
         ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CBCentralManager",
+        "printedName": "CBCentralManager",
+        "declKind": "Class",
+        "usr": "c:objc(cs)CBCentralManager",
+        "moduleName": "CoreBluetooth",
+        "isOpen": true,
+        "intro_iOS": "5.0",
+        "objc_name": "CBCentralManager",
+        "declAttributes": [
+          "Available",
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)CBManager",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "CoreBluetooth.CBManager",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CLLocation",
+        "printedName": "CLLocation",
+        "declKind": "Class",
+        "usr": "c:objc(cs)CLLocation",
+        "moduleName": "_LocationEssentials",
+        "isOpen": true,
+        "intro_iOS": "2.0",
+        "objc_name": "CLLocation",
+        "declAttributes": [
+          "Available",
+          "ObjC",
+          "SynthesizedProtocol",
+          "Sendable",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
       }
     ],
     "json_format_version": 8
   },
   "ConstValues": [
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 35,
       "value": "\"HubbleGatewaySDK_HubbleGatewaySDK\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "Array",
       "offset": 989,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "StringLiteral",
       "offset": 1516,
       "length": 9,
       "value": "\".bundle\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/build\/dd_iOS_Simulator\/Build\/Intermediates.noindex\/HubbleGatewaySDK.build\/Release-iphonesimulator\/HubbleGatewaySDK.build\/DerivedSources\/resource_bundle_accessor.swift",
       "kind": "StringLiteral",
       "offset": 1668,
       "length": 63,
       "value": "\"unable to find bundle named HubbleGatewaySDK_HubbleGatewaySDK\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "IntegerLiteral",
+      "offset": 855,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "IntegerLiteral",
+      "offset": 891,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
       "kind": "StringLiteral",
-      "offset": 780,
+      "offset": 2290,
       "length": 24,
       "value": "\"com.hubble.gateway.ble\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
       "kind": "Array",
-      "offset": 938,
+      "offset": 2506,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "Array",
+      "offset": 2758,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
       "kind": "BooleanLiteral",
-      "offset": 975,
+      "offset": 2903,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
       "kind": "BooleanLiteral",
-      "offset": 1179,
+      "offset": 3189,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3347,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Background\/BackgroundCoordinator.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "Array",
+      "offset": 3582,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "Array",
+      "offset": 3611,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "Array",
+      "offset": 3879,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
       "kind": "BooleanLiteral",
-      "offset": 1030,
+      "offset": 6710,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "Array",
+      "offset": 14375,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "BooleanLiteral",
+      "offset": 14530,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/BLE\/BleScanner.swift",
+      "kind": "BooleanLiteral",
+      "offset": 15092,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/BackgroundCoordinator.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1208,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
       "kind": "BooleanLiteral",
       "offset": 536,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
       "kind": "IntegerLiteral",
-      "offset": 1399,
+      "offset": 1463,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1452,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
       "kind": "Array",
-      "offset": 1501,
+      "offset": 2240,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
       "kind": "IntegerLiteral",
-      "offset": 16818,
+      "offset": 2474,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1885,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2145,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2561,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
-      "kind": "BooleanLiteral",
-      "offset": 2746,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
       "kind": "IntegerLiteral",
-      "offset": 3459,
+      "offset": 2527,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "kind": "Array",
+      "offset": 2576,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "kind": "Dictionary",
+      "offset": 3943,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4183,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Background\/UploadCycleRunner.swift",
+      "kind": "IntegerLiteral",
+      "offset": 28650,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4865,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5280,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6026,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6290,
       "length": 2,
       "value": "50"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6596,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6601,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7152,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7157,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "BooleanLiteral",
+      "offset": 7345,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7965,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "BooleanLiteral",
+      "offset": 8222,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9227,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9412,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 10125,
+      "length": 2,
+      "value": "50"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
       "kind": "StringLiteral",
-      "offset": 3512,
+      "offset": 10178,
       "length": 29,
       "value": "\"com.hubble.gateway.location\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
       "kind": "StringLiteral",
-      "offset": 4128,
+      "offset": 10794,
       "length": 19,
       "value": "\"UIBackgroundModes\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
       "kind": "Array",
-      "offset": 4165,
+      "offset": 10831,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
       "kind": "StringLiteral",
-      "offset": 4198,
+      "offset": 10864,
       "length": 10,
       "value": "\"location\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "IntegerLiteral",
+      "offset": 11953,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Location\/LocationSource.swift",
+      "kind": "BooleanLiteral",
+      "offset": 21148,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
       "kind": "IntegerLiteral",
       "offset": 113,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
       "kind": "IntegerLiteral",
       "offset": 136,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
       "kind": "IntegerLiteral",
       "offset": 158,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Models\/UploadStatus.swift",
       "kind": "IntegerLiteral",
       "offset": 178,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
       "kind": "BooleanLiteral",
-      "offset": 1471,
+      "offset": 2019,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2311,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
       "kind": "IntegerLiteral",
-      "offset": 2919,
+      "offset": 3759,
       "length": 3,
       "value": "120"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
       "kind": "IntegerLiteral",
-      "offset": 3117,
+      "offset": 4702,
+      "length": 2,
+      "value": "15"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4707,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5010,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5402,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Motion\/MotionMonitor.swift",
       "kind": "BooleanLiteral",
-      "offset": 3469,
+      "offset": 5841,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Networking\/AuthClient.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Networking\/AuthClient.swift",
       "kind": "BooleanLiteral",
-      "offset": 4442,
+      "offset": 5369,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Networking\/GatewayApiClient.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Networking\/GatewayApiClient.swift",
       "kind": "BooleanLiteral",
-      "offset": 18748,
+      "offset": 19366,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/CrashBreadcrumbHandler.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/CrashBreadcrumbHandler.swift",
       "kind": "Dictionary",
       "offset": 1660,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/CrashBreadcrumbHandler.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/CrashBreadcrumbHandler.swift",
       "kind": "BooleanLiteral",
       "offset": 1701,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/LogBuffer.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/LogBuffer.swift",
+      "kind": "StringLiteral",
+      "offset": 856,
+      "length": 6,
+      "value": "\"warn\""
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/LogBuffer.swift",
       "kind": "Array",
-      "offset": 553,
+      "offset": 937,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
       "offset": 2691,
       "length": 7,
       "value": "\"GSDK:\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4390,
+      "offset": 7225,
       "length": 20,
       "value": "\"com.hubble.gateway\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4422,
+      "offset": 7257,
       "length": 5,
       "value": "\"ble\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4473,
+      "offset": 7308,
       "length": 20,
       "value": "\"com.hubble.gateway\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4505,
+      "offset": 7340,
       "length": 10,
       "value": "\"location\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4559,
+      "offset": 7394,
       "length": 20,
       "value": "\"com.hubble.gateway\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4591,
+      "offset": 7426,
       "length": 8,
       "value": "\"upload\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4644,
+      "offset": 7479,
       "length": 20,
       "value": "\"com.hubble.gateway\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4676,
+      "offset": 7511,
       "length": 9,
       "value": "\"storage\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4732,
+      "offset": 7567,
       "length": 20,
       "value": "\"com.hubble.gateway\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Observability\/Logger.swift",
       "kind": "StringLiteral",
-      "offset": 4764,
+      "offset": 7599,
       "length": 11,
       "value": "\"lifecycle\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
       "kind": "IntegerLiteral",
       "offset": 79,
       "length": 2,
       "value": "-1"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
       "kind": "StringLiteral",
       "offset": 420,
       "length": 23,
       "value": "\"com.hubble.gateway.db\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 832,
+      "offset": 1430,
       "length": 13,
       "value": "1"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 847,
+      "offset": 1445,
       "length": 14,
       "value": "2"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 863,
+      "offset": 1461,
       "length": 14,
       "value": "3"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 32142,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 28108,
+      "offset": 43319,
       "length": 7,
       "value": "\"crash\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/ScanResultStore.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/PacketDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 44581,
+      "length": 4,
+      "value": "4096"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Persistence\/ScanResultStore.swift",
       "kind": "StringLiteral",
-      "offset": 4390,
+      "offset": 4803,
       "length": 18,
       "value": "\"0123456789abcdef\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "kind": "Array",
+      "offset": 2775,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "StringLiteral",
-      "offset": 4029,
+      "offset": 8817,
       "length": 6,
       "value": "\"FCA6\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
-      "kind": "StringLiteral",
-      "offset": 4065,
-      "length": 6,
-      "value": "\"FEED\""
-    },
-    {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4129,
+      "offset": 8872,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4172,
+      "offset": 8915,
       "length": 2,
       "value": "15"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4177,
+      "offset": 8920,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4212,
+      "offset": 8955,
       "length": 3,
       "value": "500"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4256,
+      "offset": 8999,
       "length": 1,
       "value": "7"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4260,
+      "offset": 9003,
       "length": 2,
       "value": "24"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4265,
+      "offset": 9008,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4270,
+      "offset": 9013,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4321,
+      "offset": 9064,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4326,
+      "offset": 9069,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4383,
+      "offset": 9126,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4431,
+      "offset": 9174,
       "length": 2,
       "value": "50"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4488,
+      "offset": 9227,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "kind": "IntegerLiteral",
+      "offset": 9273,
+      "length": 3,
+      "value": "200"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "kind": "IntegerLiteral",
+      "offset": 9331,
       "length": 2,
       "value": "15"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4493,
+      "offset": 9336,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4543,
+      "offset": 9393,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "kind": "IntegerLiteral",
+      "offset": 9443,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "kind": "IntegerLiteral",
+      "offset": 9493,
       "length": 3,
       "value": "100"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4593,
+      "offset": 9543,
       "length": 2,
       "value": "50"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4639,
+      "offset": 9589,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4689,
+      "offset": 9639,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4693,
+      "offset": 9643,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4739,
+      "offset": 9689,
       "length": 2,
       "value": "15"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/AdvancedTuning.swift",
       "kind": "IntegerLiteral",
-      "offset": 4744,
+      "offset": 9694,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 69,
       "length": 28,
       "value": "\"com.hubble.gateway.refresh\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 134,
       "length": 31,
       "value": "\"com.hubble.gateway.processing\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 348,
       "length": 30,
       "value": "\"com.hubble.gateway.continued\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 422,
       "length": 28,
       "value": "\"com.hubble.gateway.central\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 485,
       "length": 20,
       "value": "\"com.hubble.gateway\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 546,
       "length": 14,
       "value": "\"device_token\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 602,
       "length": 15,
       "value": "\"refresh_token\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 656,
       "length": 12,
       "value": "\"gateway_id\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 707,
       "length": 25,
       "value": "\"device_token_expires_at\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 923,
       "length": 20,
       "value": "\"device_id_fallback\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 973,
       "length": 24,
       "value": "\"gateway-packets.sqlite\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 1026,
-      "length": 28,
-      "value": "\"HubbleGatewaySDK-iOS\/0.6.5\""
+      "offset": 1202,
+      "length": 7,
+      "value": "\"0.7.0\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 1238,
+      "length": 36,
+      "value": "\"HubbleGatewaySDK-iOS\/\""
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 1273,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1161,
+      "offset": 1381,
       "length": 2,
       "value": "32"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1166,
+      "offset": 1386,
       "length": 4,
       "value": "1024"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1297,
+      "offset": 1517,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1474,
+      "offset": 1694,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1479,
+      "offset": 1699,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1805,
+      "offset": 2025,
       "length": 1,
       "value": "6"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1809,
+      "offset": 2029,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1814,
+      "offset": 2034,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1911,
+      "offset": 2373,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2430,
+      "length": 1,
+      "value": "6"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2434,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2439,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "FloatLiteral",
+      "offset": 2484,
+      "length": 4,
+      "value": "0.25"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2530,
+      "length": 3,
+      "value": "100"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2818,
       "length": 3,
       "value": "500"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 1996,
+      "offset": 2903,
       "length": 3,
       "value": "200"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 2120,
+      "offset": 3027,
       "length": 3,
       "value": "200"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 2360,
+      "offset": 3267,
       "length": 26,
       "value": "\"com.hubble.gateway.prefs\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 2438,
+      "offset": 3345,
       "length": 23,
       "value": "\"dataCollectionEnabled\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 2725,
+      "offset": 3632,
       "length": 23,
       "value": "\"scanningIntentEnabled\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/NetworkPolicy.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/DiscoveryPlan.swift",
+      "kind": "BooleanLiteral",
+      "offset": 729,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/DiscoveryPlan.swift",
+      "kind": "BooleanLiteral",
+      "offset": 752,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/DiscoveryPlan.swift",
+      "kind": "BooleanLiteral",
+      "offset": 771,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/DiscoveryPlan.swift",
+      "kind": "BooleanLiteral",
+      "offset": 829,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/DiscoveryPlan.swift",
+      "kind": "BooleanLiteral",
+      "offset": 853,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/DiscoveryPlan.swift",
+      "kind": "BooleanLiteral",
+      "offset": 873,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/NetworkPolicy.swift",
       "kind": "StringLiteral",
       "offset": 392,
       "length": 30,
       "value": "\"com.hubble.gateway.netpolicy\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ScanServiceUUIDs.swift",
       "kind": "IntegerLiteral",
-      "offset": 3507,
-      "length": 6,
-      "value": "10000"
+      "offset": 3270,
+      "length": 1,
+      "value": "6"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ScanServiceUUIDs.swift",
+      "kind": "StringLiteral",
+      "offset": 4953,
+      "length": 30,
+      "value": "\"-0000-1000-8000-00805F9B34FB\""
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8680,
+      "length": 6,
+      "value": "60000"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8689,
+      "length": 9,
+      "value": "3600000"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8735,
+      "length": 5,
+      "value": "5000"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8743,
+      "length": 9,
+      "value": "3600000"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "IntegerLiteral",
+      "offset": 8913,
+      "length": 3,
+      "value": "500"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "StringLiteral",
+      "offset": 11094,
+      "length": 6,
+      "value": "\"FCA6\""
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Internal\/Support\/ServerConfigStore.swift",
+      "kind": "IntegerLiteral",
+      "offset": 11337,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "BooleanLiteral",
       "offset": 1819,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 1868,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 1912,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 1962,
       "length": 3,
       "value": "120"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 2005,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 4399,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 4852,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 5701,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "StringLiteral",
       "offset": 6538,
       "length": 50,
       "value": "\"com.hubble.gateway.locationAlwaysPromptRequested\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 8130,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "IntegerLiteral",
       "offset": 9554,
       "length": 3,
       "value": "120"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "BooleanLiteral",
       "offset": 12258,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/GatewayPermissionsRequest.swift",
       "kind": "Array",
       "offset": 12312,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGateway.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGateway.swift",
       "kind": "BooleanLiteral",
-      "offset": 5089,
+      "offset": 7120,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGateway.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGateway.swift",
       "kind": "Array",
-      "offset": 5408,
+      "offset": 8306,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGateway.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGateway.swift",
       "kind": "BooleanLiteral",
-      "offset": 5550,
+      "offset": 8669,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "kind": "Array",
+      "offset": 2942,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
       "kind": "StringLiteral",
-      "offset": 2201,
+      "offset": 3359,
       "length": 27,
       "value": "\"https:\/\/gw-api.hubble.com\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3599,
+      "length": 2,
+      "value": "50"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3670,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3745,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3750,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 2309,
+      "offset": 5518,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 2348,
+      "offset": 5557,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
       "kind": "StringLiteral",
-      "offset": 2389,
+      "offset": 5598,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/IntegrationCheck.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/HubbleGatewayConfig.swift",
       "kind": "Array",
-      "offset": 5005,
+      "offset": 5955,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/IntegrationCheck.swift",
+      "kind": "Array",
+      "offset": 5367,
       "length": 190,
       "value": "[\"NSBluetoothAlwaysUsageDescription\", \"NSLocationAlwaysAndWhenInUseUsageDescription\", \"NSLocationWhenInUseUsageDescription\", \"NSMotionUsageDescription\"]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/IntegrationCheck.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/IntegrationCheck.swift",
       "kind": "Array",
-      "offset": 5248,
+      "offset": 5610,
       "length": 94,
       "value": "[\"bluetooth-central\", \"location\", \"fetch\", \"processing\"]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanListener.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanListener.swift",
       "kind": "IntegerLiteral",
-      "offset": 1632,
+      "offset": 3324,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanListener.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanListener.swift",
       "kind": "IntegerLiteral",
-      "offset": 1666,
+      "offset": 3358,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanListener.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3694,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanListener.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3742,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "BooleanLiteral",
       "offset": 2169,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "Array",
       "offset": 2195,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "BooleanLiteral",
       "offset": 2299,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "BooleanLiteral",
       "offset": 2635,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "Array",
       "offset": 2662,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "BooleanLiteral",
       "offset": 2773,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/var\/folders\/8j\/sfr9qqcj73j4p6nhwcfpr0th0000gn\/T\/tmp.VQV0f4FEgd\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
+      "filePath": "\/var\/folders\/n6\/hn37q6pj7sj_9dmqqc2113800000gn\/T\/tmp.LWeQUDFl2J\/Sources\/HubbleGatewaySDK\/Public\/ScanStartResult.swift",
       "kind": "Array",
       "offset": 2800,
       "length": 2,

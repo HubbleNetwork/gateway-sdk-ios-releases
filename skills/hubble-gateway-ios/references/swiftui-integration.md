@@ -7,10 +7,12 @@ The recommended architecture is two layers, mirroring the official sample app (`
 
 ## What GatewayController gives you
 
+`GatewayController` does not mirror `operatingMode`; add it to `refresh()` if your UI gates on it (one line, alongside the other mirrors).
+
 - Mirrors every SDK state field as observable `private(set) var`s (`permissions`, `initializationState`, `isScanning`, `gatewayId`, `lastLocation`, `lastDiagnostics`, `isBluetoothPoweredOn`, `discoveredDevices`) so views bind directly.
-- Refreshes on a 5 s poll **and** on `UIApplication.didBecomeActiveNotification` — permission changes made in Settings surface without reopening the app. (Also call `refresh()` from a `scenePhase` `.active` transition if you prefer scene-based wiring.)
+- Refreshes SDK state on a 5 s timer **and** on `UIApplication.didBecomeActiveNotification` — permission changes made in Settings surface without reopening the app. (Also call `refresh()` from a `scenePhase` `.active` transition if you prefer scene-based wiring.)
 - Bridges `ScanListener` callbacks onto the main actor via a privately-retained `ScanCollector` (satisfies the SDK's weak-listener requirement).
-- Dedupes devices into `[DiscoveredDevice]` keyed on `serviceData` (peripheral IDs rotate).
+- Dedupes devices into `[DiscoveredDevice]` keyed on `serviceData` (peripheral IDs rotate), and **coalesces** them: `ScanListener` callbacks arrive per raw sighting, above the SDK's dedup (several per second per nearby beacon), so each one only updates a private index and opens a 500 ms republish window if none is open; the observable `discoveredDevices` array is re-sorted and republished when that window closes. It is a throttle, not a debounce — later sightings fold into the open window instead of pushing it back, because a beacon in range never stops arriving and a resetting timer would never fire. Nothing is armed while no sightings arrive, so an idle app does no work at all. Copy that pattern — driving SwiftUI state straight from the callback is the mistake this file exists to prevent.
 - `discoveries() -> AsyncStream<GatewayScanResult>` — independent multiplexed stream per caller, `bufferingNewest(200)`; the SDK itself only offers the listener protocol.
 - `waitForBluetoothPoweredOn(timeout:)` — poll helper for the start flow (the SDK's `CBCentralManager` is deferred until BT permission is determined).
 
@@ -184,7 +186,7 @@ For an in-app console view, keep a capped `@Observable` array (e.g. last 500 ent
 
 ## Building a permissions UI
 
-`GatewayPermissions.requirementsGuide()` returns an ordered `[GatewayPermissionRequirement]` (kind, rationale, required, granted) — render it directly as a checklist instead of hardcoding rows. `PermissionStatus.isReadyForBackground` is the single flag for a "background ready" indicator.
+`GatewayPermissions.requirementsGuide()` returns an ordered `[GatewayPermissionRequirement]` (kind, rationale, required, granted) — render it directly as a checklist instead of hardcoding rows. Only Bluetooth and location When-In-Use carry `required == true`; motion and location Always do not, so a row that is missing is not necessarily a blocker. `PermissionStatus.isReadyForBackground` is the single flag for a "background ready" indicator, and `HubbleGateway.shared.operatingMode` distinguishes `.foregroundOnly` (working) from `.notOperational` (not).
 
 ## SDK key injection for samples/dev builds
 
