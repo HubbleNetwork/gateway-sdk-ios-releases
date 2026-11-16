@@ -22,4 +22,4 @@ labels: bug
 ## Logs
 
 <!-- Filter Console.app on subsystem com.hubble.gateway.
-     Redact anything sensitive (SDK keys, tokens, device identifiers). -->
+     Redact anything sensitive (Gateway Group IDs, tokens, device identifiers). -->

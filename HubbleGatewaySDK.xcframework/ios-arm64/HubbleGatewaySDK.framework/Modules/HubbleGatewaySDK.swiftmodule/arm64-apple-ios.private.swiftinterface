@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
-// swift-module-flags: -target arm64-apple-ios16.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_lwequdfl2j
+// swift-module-flags: -target arm64-apple-ios16.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name HubbleGatewaySDK -package-name tmp_1jyxkxxgkt
 // swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
 import BackgroundTasks
 import Compression
@@ -149,6 +149,36 @@ extension HubbleGatewaySDK.GatewayPermissions {
   @_Concurrency.MainActor public static func requestLocationAlways(timeout: Foundation.TimeInterval = 30) async -> HubbleGatewaySDK.LocationAuthorization
   @_Concurrency.MainActor public static func openSettingsForLocationAlways(timeout: Foundation.TimeInterval = 120) async -> HubbleGatewaySDK.LocationAuthorization
 }
+public enum GroupChangeResult : Swift.Sendable, Swift.Equatable {
+  case unchanged
+  case switched
+  case switchedToFallback
+  case switchedPendingRegistration(HubbleGatewaySDK.GroupChangeResult.PendingReason)
+  case notApplied(HubbleGatewaySDK.GroupChangeResult.NotAppliedReason)
+  public enum PendingReason : Swift.Sendable, Swift.Equatable {
+    case dataCollectionDisabled
+    case uploadsRestricted
+    case networkError
+    case serverError
+    case groupIdRefused
+    case gatewayDisabled
+    public static func == (a: HubbleGatewaySDK.GroupChangeResult.PendingReason, b: HubbleGatewaySDK.GroupChangeResult.PendingReason) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum NotAppliedReason : Swift.Sendable, Swift.Equatable {
+    case notStarted
+    case emptyGroupId
+    public static func == (a: HubbleGatewaySDK.GroupChangeResult.NotAppliedReason, b: HubbleGatewaySDK.GroupChangeResult.NotAppliedReason) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func == (a: HubbleGatewaySDK.GroupChangeResult, b: HubbleGatewaySDK.GroupChangeResult) -> Swift.Bool
+}
 @_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class HubbleGateway {
   @_Concurrency.MainActor public static let shared: HubbleGatewaySDK.HubbleGateway
   @_Concurrency.MainActor final public var initializationState: HubbleGatewaySDK.InitializationState {
@@ -175,6 +205,15 @@ extension HubbleGatewaySDK.GatewayPermissions {
   @_Concurrency.MainActor final public var isRegistered: Swift.Bool {
     get
   }
+  @_Concurrency.MainActor final public var activeGroupHash: Swift.String? {
+    get
+  }
+  @_Concurrency.MainActor final public var isUsingFallbackGroupId: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor final public var isGatewayDisabled: Swift.Bool {
+    get
+  }
   @_Concurrency.MainActor final public var lastLocation: HubbleGatewaySDK.LocationFix? {
     get
   }
@@ -185,6 +224,8 @@ extension HubbleGatewaySDK.GatewayPermissions {
   @_Concurrency.MainActor public static func registerBackgroundTasks(configProvider: (@_Concurrency.MainActor @Sendable () -> HubbleGatewaySDK.HubbleGatewayConfig?)? = nil)
   nonisolated public static func setLogSink(_ sink: (any HubbleGatewaySDK.GatewayLogSink)?, minLevel: HubbleGatewaySDK.GatewayLogEntry.Level = .info)
   @_Concurrency.MainActor final public func start(config: HubbleGatewaySDK.HubbleGatewayConfig) throws
+  @discardableResult
+  @_Concurrency.MainActor final public func changeGroupId(_ groupId: Swift.String) async -> HubbleGatewaySDK.GroupChangeResult
   @discardableResult
   @_Concurrency.MainActor final public func startScanning() -> HubbleGatewaySDK.ScanStartResult
   @_Concurrency.MainActor final public func stopScanning()
@@ -205,6 +246,7 @@ extension HubbleGatewaySDK.GatewayPermissions {
 }
 public struct HubbleGatewayConfig : Swift.Sendable {
   public let sdkKey: Swift.String
+  public let fallbackSdkKey: Swift.String
   public let respectLowPowerMode: Swift.Bool
   public let uploadOnCellular: Swift.Bool
   public let privacyPolicyUrl: Swift.String
@@ -213,7 +255,7 @@ public struct HubbleGatewayConfig : Swift.Sendable {
   public static let defaultLocationAccuracyFloorMeters: Swift.Double
   public static let defaultMovingFreshnessSeconds: Swift.Double
   public static let defaultStationaryFreshnessSeconds: Swift.Double
-  public init(sdkKey: Swift.String, respectLowPowerMode: Swift.Bool = true, uploadOnCellular: Swift.Bool = true, privacyPolicyUrl: Swift.String = "", locationAccuracyFloorMeters: Swift.Double = HubbleGatewayConfig.defaultLocationAccuracyFloorMeters, movingFreshnessSeconds: Foundation.TimeInterval = HubbleGatewayConfig.defaultMovingFreshnessSeconds, stationaryFreshnessSeconds: Foundation.TimeInterval = HubbleGatewayConfig.defaultStationaryFreshnessSeconds, additionalScanServiceUUIDs: [Swift.String] = [])
+  public init(sdkKey: Swift.String, fallbackSdkKey: Swift.String = "", respectLowPowerMode: Swift.Bool = true, uploadOnCellular: Swift.Bool = true, privacyPolicyUrl: Swift.String = "", locationAccuracyFloorMeters: Swift.Double = HubbleGatewayConfig.defaultLocationAccuracyFloorMeters, movingFreshnessSeconds: Foundation.TimeInterval = HubbleGatewayConfig.defaultMovingFreshnessSeconds, stationaryFreshnessSeconds: Foundation.TimeInterval = HubbleGatewayConfig.defaultStationaryFreshnessSeconds, additionalScanServiceUUIDs: [Swift.String] = [])
 }
 public enum InitializationState : Swift.String, Swift.Sendable {
   case notStarted
@@ -305,7 +347,10 @@ public struct UploadDiagnostics : Swift.Sendable, Swift.Codable {
   public let skipUntil: Foundation.Date?
   public let multiPayloadAdvertisements: Swift.Int
   public let strippedPayloadAdvertisements: Swift.Int
-  public init(pendingPackets: Swift.Int, uploadingPackets: Swift.Int, failedPackets: Swift.Int, pendingLocations: Swift.Int, uploadingLocations: Swift.Int = 0, failedLocations: Swift.Int = 0, lastUploadAt: Foundation.Date?, lastLocationsUploadAt: Foundation.Date? = nil, lastLogsUploadAt: Foundation.Date? = nil, lastHeartbeatAt: Foundation.Date? = nil, lastUploadError: Swift.String?, lastSuccessfulBatchSize: Swift.Int, bytesUploadedLast24h: Swift.Int64, skipUntil: Foundation.Date? = nil, multiPayloadAdvertisements: Swift.Int = 0, strippedPayloadAdvertisements: Swift.Int = 0)
+  public let activeGroupHash: Swift.String?
+  public let isUsingFallbackGroupId: Swift.Bool
+  public let isGatewayDisabled: Swift.Bool
+  public init(pendingPackets: Swift.Int, uploadingPackets: Swift.Int, failedPackets: Swift.Int, pendingLocations: Swift.Int, uploadingLocations: Swift.Int = 0, failedLocations: Swift.Int = 0, lastUploadAt: Foundation.Date?, lastLocationsUploadAt: Foundation.Date? = nil, lastLogsUploadAt: Foundation.Date? = nil, lastHeartbeatAt: Foundation.Date? = nil, lastUploadError: Swift.String?, lastSuccessfulBatchSize: Swift.Int, bytesUploadedLast24h: Swift.Int64, skipUntil: Foundation.Date? = nil, multiPayloadAdvertisements: Swift.Int = 0, strippedPayloadAdvertisements: Swift.Int = 0, activeGroupHash: Swift.String? = nil, isUsingFallbackGroupId: Swift.Bool = false, isGatewayDisabled: Swift.Bool = false)
   public func encode(to encoder: any Swift.Encoder) throws
 }
 extension HubbleGatewaySDK.UploadDiagnostics {
@@ -347,6 +392,8 @@ extension HubbleGatewaySDK.LocationAuthorization : Swift.RawRepresentable {}
 extension HubbleGatewaySDK.MotionAuthorization : Swift.Equatable {}
 extension HubbleGatewaySDK.MotionAuthorization : Swift.Hashable {}
 extension HubbleGatewaySDK.MotionAuthorization : Swift.RawRepresentable {}
+extension HubbleGatewaySDK.GroupChangeResult.PendingReason : Swift.Hashable {}
+extension HubbleGatewaySDK.GroupChangeResult.NotAppliedReason : Swift.Hashable {}
 extension HubbleGatewaySDK.HubbleGateway : Swift.Sendable {}
 extension HubbleGatewaySDK.InitializationState : Swift.Equatable {}
 extension HubbleGatewaySDK.InitializationState : Swift.Hashable {}

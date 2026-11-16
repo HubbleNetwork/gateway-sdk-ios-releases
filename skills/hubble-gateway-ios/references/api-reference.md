@@ -1,6 +1,6 @@
 # HubbleGatewaySDK — Public API Reference
 
-SDK version 0.7.0. Everything below is the complete public surface — if a symbol isn't here, it doesn't exist; don't invent methods. All types live in `import HubbleGatewaySDK`. The main class and `GatewayPermissions` are `@MainActor`-isolated.
+SDK version 0.7.1. Everything below is the complete public surface — if a symbol isn't here, it doesn't exist; don't invent methods. All types live in `import HubbleGatewaySDK`. The main class and `GatewayPermissions` are `@MainActor`-isolated.
 
 ## HubbleGateway (main entry point)
 
@@ -17,6 +17,9 @@ SDK version 0.7.0. Everything below is the complete public surface — if a symb
 | `isDataCollectionEnabled` | `Bool` | persistent user opt-out flag |
 | `gatewayId` | `String?` | assigned at registration |
 | `isRegistered` | `Bool` | |
+| `activeGroupHash` | `String?` | SHA-256 hex of the Group ID in effect (the dashboard's group hash; the fallback's while it is in use); never the Group ID itself; nil before `start` |
+| `isUsingFallbackGroupId` | `Bool` | running under `fallbackSdkKey` (primary empty or refused with 401) |
+| `isGatewayDisabled` | `Bool` | registration answered 403 `gateway_disabled`; nothing new uploaded, retried hourly |
 | `lastLocation` | `LocationFix?` | |
 | `isBluetoothPoweredOn` | `Bool` | false until permission determined (CBCentralManager is deferred) |
 | `isActiveScanningOverride` | `Bool` | active (high-cadence) mode pinned |
@@ -31,8 +34,9 @@ static func registerBackgroundTasks(configProvider: (@Sendable @MainActor () -> 
 func start(config: HubbleGatewayConfig) throws   // GatewayError.alreadyStarted if already started
 @discardableResult func startScanning() -> ScanStartResult
 func stopScanning()                               // user-intent switch, NOT a screen pause — see below
-func stop()                                       // full unwind to .notStarted; keeps persisted data
+func stop()                                       // full unwind to .notStarted; keeps queue, toggle AND registration
 func registerIfNeeded() async throws
+@discardableResult func changeGroupId(_ groupId: String) async -> GroupChangeResult // switch Gateway Group — see below
 func setDataCollectionEnabled(_ enabled: Bool)    // persistent opt-out
 func deleteAllData()                              // GDPR/CCPA erasure; does NOT change the opt-out flag
 func addScanListener(_ listener: ScanListener)    // ⚠️ held WEAKLY — keep your own strong ref or you get NO callbacks
@@ -54,6 +58,10 @@ static func setLogSink(_ sink: GatewayLogSink?, minLevel: GatewayLogEntry.Level 
 
 **`GatewayOperatingMode`** — `.full` when everything is granted including background location; `.foregroundOnly` when location is `.authorizedWhenInUse`, which is a **supported mode, not a broken one**: scanning, location pairing and upload all work exactly as in `.full` while the app is foregrounded, and stop when it is backgrounded; `.notOperational` when the SDK is not started, data collection is off, Bluetooth is unauthorized or powered off, or location was never granted. Read it live (it reflects Settings changes made while backgrounded) and `switch` on it rather than pairing booleans. It says which mode you are in, not what is missing — for that use `GatewayPermissions.currentStatus()`, a `ScanStartResult`'s `missingPermissions`, or `validateIntegration()`.
 
+**`changeGroupId(_:)`** switches a running SDK to another Gateway Group ID — no `stop()`/`start()`/`deleteAllData()`. Same ID as the one in effect: no-op (no network, queue untouched). Different ID: new sightings and location fixes belong to the new group at once, and — when data collection is enabled — the device registers under the new group before the call returns (`gatewayId` changes). **Unsent sightings and location fixes of the previous group are still uploaded, under the previous group's registration** (never under the new one): it stays current until the new registration succeeds, then is kept aside until its data is uploaded, its credentials stop working, or 7 days pass (the rest is then dropped). If that group is revoked or this device's gateway is disabled before its data is uploaded, the data is dropped (same for a primary revoked while the SDK moves to `fallbackSdkKey`) — never uploaded under another group. Scanning, the opt-out toggle, listeners and background tasks are untouched. Never throws; returns `GroupChangeResult`: `.unchanged`, `.switched`, `.switchedToFallback`, `.switchedPendingRegistration(reason)` (switch in effect, registration pending: `dataCollectionDisabled` / `uploadsRestricted` / `networkError` / `serverError` / `groupIdRefused` / `gatewayDisabled`; the SDK retries on its own, no backoff — a disabled gateway hourly) or `.notApplied(reason)` (`notStarted` / `emptyGroupId`, nothing changed). Handle future cases with `@unknown default`. `start(config:)` with a Group ID different from the stored registration's behaves the same way. The SDK does not persist the Group ID: the `registerBackgroundTasks` `configProvider` must return the Group ID last switched to, or a background relaunch switches back.
+
+**`fallbackSdkKey`** — used when `sdkKey` is empty or registration with it is refused (HTTP 401), including after the current registration dies and re-registering with `sdkKey` is refused. Never on 403 `gateway_disabled` (the device was disabled — see `isGatewayDisabled`), network errors, 429 or 5xx. While on it, `sdkKey` is retried hourly and on every `start`/`changeGroupId`; data never crosses between the two Group IDs. For an app that moves users between an organization's group and a shared one, pass the organization's ID as `sdkKey` and the shared one as `fallbackSdkKey`.
+
 **`stopScanning()` is not a lifecycle pause.** It clears the *persisted*
 scanning intent — the flag the SDK reads on a background relaunch to decide
 whether to resume after process death. A host that calls it when its scan
@@ -70,6 +78,7 @@ just `removeScanListener(_:)` and leave the scan running.
 ```swift
 public struct HubbleGatewayConfig: Sendable {
     init(sdkKey: String,
+         fallbackSdkKey: String = "",              // backup Group ID: used when sdkKey is empty or refused (401)
          respectLowPowerMode: Bool = true,
          uploadOnCellular: Bool = true,
          privacyPolicyUrl: String = "",
@@ -85,7 +94,7 @@ public struct HubbleGatewayConfig: Sendable {
 }
 ```
 
-The API base URL is compile-time baked (`https://gw-api.hubble.com`) — no runtime override for integrators. Cadence/dedup/batch tuning is internal and not host-configurable. **This is about configuration only — it does not mean listener delivery is deduped.** Scan listeners receive *every* sighting the scanner emitted, before any dedup; dedup governs local storage and upload, nothing above it. The location-quality thresholds (accuracy floor, moving/stationary freshness) are the exception: they are set on the initializer above and are host-owned, so the value the host passes is the value used. `additionalScanServiceUUIDs` widens the scan filter only: matching advertisements are delivered to `ScanListener`, and adding a UUID never makes the SDK store or upload it. `FCA6` is always scanned; only it and the other services the SDK key is enabled for (such as Tile's `FEED`) are ever stored and uploaded, so any other service the scan happens to match stays listeners-only. Malformed UUID strings are ignored with a log line; duplicates are dropped; at most 6 extra UUIDs are kept, the rest logged and dropped.
+The API base URL is compile-time baked (`https://gw-api.hubble.com`) — no runtime override for integrators. Cadence/dedup/batch tuning is internal and not host-configurable. **This is about configuration only — it does not mean listener delivery is deduped.** Scan listeners receive *every* sighting the scanner emitted, before any dedup; dedup governs local storage and upload, nothing above it. The location-quality thresholds (accuracy floor, moving/stationary freshness) are the exception: they are set on the initializer above and are host-owned, so the value the host passes is the value used. `additionalScanServiceUUIDs` widens the scan filter only: matching advertisements are delivered to `ScanListener`, and adding a UUID never makes the SDK store or upload it. `FCA6` is always scanned; only it and the other services the Gateway Group ID is enabled for (such as Tile's `FEED`) are ever stored and uploaded, so any other service the scan happens to match stays listeners-only. Malformed UUID strings are ignored with a log line; duplicates are dropped; at most 6 extra UUIDs are kept, the rest logged and dropped.
 
 ## GatewayPermissions
 
@@ -171,7 +180,7 @@ public protocol ScanListener: AnyObject, Sendable {
 }
 ```
 
-**Delivery is per raw advertisement, above dedup.** Nothing is merged or suppressed on the way to the listener; the dedup window applies only to the rows the SDK stores and uploads. The unit is one callback per *sighting the scanner emitted*, and one advertisement yields **at most one** sighting of a service the SDK uploads: `0xFCA6` first, then any other Hubble service the SDK uploads, and the first of those with usable service data wins. So an advertisement carrying service data for two uploaded services produces **one** callback, not two (`UploadDiagnostics.multiPayloadAdvertisements` counts those). A host scan-only UUID added via `additionalScanServiceUUIDs` is emitted on top of the payload sighting, so an advertisement matching both fires twice.
+**Delivery is per raw advertisement, above dedup.** Nothing is merged or suppressed on the way to the listener; the dedup window applies only to the rows the SDK stores and uploads. The unit is one callback per *sighting the scanner emitted*, and one advertisement yields **at most one** sighting of a service the SDK uploads: `0xFCA6` first, then any other Hubble service the SDK uploads, and the first of those with usable service data wins. So an advertisement carrying service data for two uploaded services produces **one** callback, not two (`UploadDiagnostics.multiPayloadAdvertisements` counts those). A host scan-only UUID added via `additionalScanServiceUUIDs` is emitted on top of the payload sighting, so an advertisement matching both fires twice. A host scan-only service the advertisement lists without service data (advertised by UUID alone) is delivered with **empty** `serviceData`; such a sighting is never stored or uploaded. Skip empty `serviceData` before keying on it.
 
 That delivery contract is what makes a live scan UI possible (RSSI moves, every rotated `serviceData` payload arrives), and it is also the cost: in the foreground `CBCentralManagerScanOptionAllowDuplicatesKey` is honored, so each nearby beacon delivers **several callbacks per second**, and the aggregate scales with how many beacons are in range. The SDK's own foreground profiling of this path measured roughly **4 callbacks per second (~240/min)** in aggregate, over an unrecorded number of beacons — an order-of-magnitude figure, not a per-beacon rate and not a ceiling.
 
@@ -211,6 +220,9 @@ public struct UploadDiagnostics: Sendable, Codable {
     let skipUntil: Date?      // cycle backoff / server Retry-After window
     let multiPayloadAdvertisements: Int     // ads carrying data for >1 uploaded service; only one (FCA6 first) became a sighting
     let strippedPayloadAdvertisements: Int  // callbacks listing an uploaded service without its service data — an upper bound on iOS background stripping
+    let activeGroupHash: String?            // SHA-256 hex of the Group ID in effect (same as HubbleGateway.activeGroupHash)
+    let isUsingFallbackGroupId: Bool        // running under fallbackSdkKey
+    let isGatewayDisabled: Bool             // this device's gateway is disabled in the active group (403)
 }
 ```
 
@@ -222,7 +234,7 @@ Both advertisement counters are in-memory, count since `start(config:)` and are 
 public struct GatewayScanResult: Sendable, Equatable {
     let peripheralIdentifier: UUID   // ROTATES — do not use as device identity
     let serviceUUID: CBUUID          // 0xFCA6 (Hubble), 0xFEED (Tile), or another scanned service
-    let serviceData: Data            // stable device identity — dedup on this
+    let serviceData: Data            // stable device identity — dedup on this (empty: host scan-only service listed without data)
     let rssi: Int
     let timestamp: Date
     let location: LocationFix?
@@ -261,4 +273,4 @@ public enum Severity { case error, warning }
 
 ## Auth model
 
-Only auth input is `sdkKey`, sent once as `X-Sdk-Key` at registration; the server returns short-lived device + refresh tokens stored in Keychain (service `com.hubble.gateway`). Token refresh is automatic and serialized. There is no delegated-auth or OAuth option in 0.7.0.
+Only auth input is `sdkKey`, sent once as `X-Sdk-Key` at registration; the server returns short-lived device + refresh tokens stored in Keychain (service `com.hubble.gateway`). Token refresh is automatic and serialized. There is no delegated-auth or OAuth option in 0.7.1.

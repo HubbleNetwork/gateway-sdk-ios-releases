@@ -40,7 +40,7 @@ struct MyApp: App {
 }
 ```
 
-Note: for the `configProvider` to work after process death the key must be available synchronously (Keychain cache) — a network fetch can't happen there.
+Note: for the `configProvider` to work after process death the Group ID must be available synchronously (Keychain cache) — a network fetch can't happen there.
 
 ## The start flow (permissions → start → scan)
 
@@ -69,7 +69,7 @@ final class AppModel {
         //    `alreadyStarted` (only a direct second `HubbleGateway.start`
         //    would). Any error thrown here is a real initialization failure.
         do {
-            try controller.configure(HubbleGatewayConfig(sdkKey: /* key */))
+            try controller.configure(HubbleGatewayConfig(sdkKey: /* Group ID */))
         } catch {
             startBlocker = "\(error)"; return
         }
@@ -188,9 +188,9 @@ For an in-app console view, keep a capped `@Observable` array (e.g. last 500 ent
 
 `GatewayPermissions.requirementsGuide()` returns an ordered `[GatewayPermissionRequirement]` (kind, rationale, required, granted) — render it directly as a checklist instead of hardcoding rows. Only Bluetooth and location When-In-Use carry `required == true`; motion and location Always do not, so a row that is missing is not necessarily a blocker. `PermissionStatus.isReadyForBackground` is the single flag for a "background ready" indicator, and `HubbleGateway.shared.operatingMode` distinguishes `.foregroundOnly` (working) from `.notOperational` (not).
 
-## SDK key injection for samples/dev builds
+## Gateway Group ID injection for samples/dev builds
 
-xcconfig pattern (sample-only — production apps should fetch the key from their backend):
+xcconfig pattern (sample-only — production apps should fetch the Group ID from their backend):
 
 1. `Secrets.xcconfig` (gitignored): `HUBBLE_SDK_KEY = hsk_...`; set as base configuration of the target.
 2. Info.plist: `<key>HubbleSDKKey</key><string>$(HUBBLE_SDK_KEY)</string>`

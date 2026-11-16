@@ -1,7 +1,7 @@
 # HubbleGatewaySDK (iOS)
 
 A passive background BLE gateway that scans for Hubble (`0xFCA6`)
-advertisements (and Tile `0xFEED` advertisements for Tile-enabled SDK keys),
+advertisements (and Tile `0xFEED` advertisements for Tile-enabled Gateway Group IDs),
 pairs them with the device's location, and uploads batches on a
 **60 s to 15 min** cadence (foreground / moving vs. background stationary).
 
@@ -18,7 +18,7 @@ It's listed in the official [Bluetooth SIG 16-bit UUID assigned numbers
 register](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf)
 (page 119).
 
-For SDK keys enabled for the Tile network, the SDK also scans for Tile's
+For Group IDs enabled for the Tile network, the SDK also scans for Tile's
 service UUID (`0xFEED`).
 
 ## Requirements
@@ -27,22 +27,22 @@ service UUID (`0xFEED`).
 - Swift 5.9+
 - Xcode 15+
 
-## Getting an SDK key
+## Getting a Gateway Group ID
 
-SDK keys (`hsk_...`) are currently issued manually. To obtain one:
+Group IDs (`hsk_...`) are currently issued manually. To obtain one:
 
 1. You must have a Hubble account — sign up at
    [docs.hubble.com](https://docs.hubble.com) if you don't have one yet.
 2. Contact us via [support@hubble.com](mailto:support@hubble.com) to
    discuss your intended gateway deployment use case. We'll generate a
-   key for your organization.
+   Group ID for your organization.
 
 ## Install
 
 `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.7.0")
+.package(url: "https://github.com/HubbleNetwork/gateway-sdk-ios-releases.git", from: "0.7.1")
 ```
 
 Or in Xcode: **File ▸ Add Package Dependencies…**
@@ -74,7 +74,7 @@ Try prompts like:
 
 What's inside:
 
-- `SKILL.md` — the four host-app requirements, SDK-key handling, common gotchas
+- `SKILL.md` — the four host-app requirements, Group ID handling, common gotchas
 - `references/api-reference.md` — the complete public API reference
 - `references/swiftui-integration.md` + `assets/` — a ready-made observable
   `GatewayController` wrapper and SwiftUI wiring
@@ -173,11 +173,12 @@ completes — in `App.init()` for SwiftUI, or
 background relaunch leaves the SDK `.notStarted` until the user
 reopens the app and starts it manually.
 
-**Where to keep the SDK key:** the inline string above is for brevity —
+**Where to keep the Gateway Group ID:** the inline string above is for brevity —
 anything compiled into the app is extractable from a shipped binary.
-The SDK treats the key as a runtime parameter and never persists it;
-it is used once, at gateway registration, after which all traffic runs
-on short-lived tokens in the Keychain. For production, fetch the key
+The SDK treats the Group ID as a runtime parameter and never persists it
+(only its SHA-256 hash, to notice when it changes); it is used once, at
+gateway registration, after which all traffic runs on short-lived tokens
+in the Keychain. For production, fetch the Group ID
 from your own backend behind your own user auth and, if you cache it
 for background relaunches, keep it in your app's Keychain.
 
@@ -285,7 +286,10 @@ advertisement yields **at most one** sighting of a service the SDK uploads —
 Hubble's own services that is one callback per advertisement even when the
 advertisement carries service data for two of them. A scan-only service the
 host added via `additionalScanServiceUUIDs` is delivered on top of that, so
-an advertisement matching both fires twice.
+an advertisement matching both fires twice. A scan-only service the
+advertisement lists without service data (advertised by UUID alone) is
+delivered with empty `serviceData`; such a sighting is never stored or
+uploaded. Services the SDK uploads are always delivered with their data.
 
 In the foreground the scan runs with duplicates allowed, so each nearby
 beacon produces **several main-queue callbacks per second**, and the total
@@ -356,7 +360,8 @@ let config = HubbleGatewayConfig(
 
 | Field | Default | What it controls |
 |---|---|---|
-| `sdkKey` | (required) | Sent in `X-Sdk-Key` on registration. |
+| `sdkKey` | (required) | Gateway Group ID. Sent in `X-Sdk-Key` on registration. To change it on a running SDK, see [Changing the Gateway Group ID](#changing-the-gateway-group-id). |
+| `fallbackSdkKey` | `""` | Backup Gateway Group ID, used when `sdkKey` is empty or refused — see [Fallback Group ID](#fallback-group-id). |
 | `respectLowPowerMode` | `true` | Skip the upload cycle when iOS Low Power Mode is on. |
 | `uploadOnCellular` | `true` | Set `false` to defer uploads until Wi-Fi. Server may tighten this but not loosen it. |
 | `privacyPolicyUrl` | `""` | Surface it from your own UI — the SDK stores but doesn't render. |
@@ -390,7 +395,7 @@ threshold is genuinely use-case-dependent (a warehouse deployment may
 tolerate 5-minute-old, 100 m fixes; a fleet tracker needs 10-second,
 20 m ones) in a way cadence/batch/dedup aren't.
 Defaults include a **60 s / 15 min** upload cadence (active / stationary),
-**500-packet** batches, **30 s / 5 min** dedup windows (moving /
+**1,000-packet** batches, **30 s / 5 min** dedup windows (moving /
 stationary), and **7-day** on-device retention (uploaded rows pruned
 after 7 days; un-uploaded rows dropped after `2 ×` = 14 days).
 
@@ -401,7 +406,7 @@ strings. They are **scan-only**. Advertisements that match reach your
 SDK store or upload it, request a location fix for it or start an upload
 cycle on its account, so adding one does not change what Hubble receives
 or what the scan costs in network and battery.
-`0xFCA6` is always scanned. It and the other services your SDK key is
+`0xFCA6` is always scanned. It and the other services your Group ID is
 enabled for (such as Tile's `0xFEED`) are the only ones the SDK stores and
 uploads — anything else the scan matches stays listeners-only.
 Malformed entries are ignored with a log line; duplicates are dropped. At most
@@ -531,7 +536,109 @@ pause: a UI that stops needing results should call
 
 `HubbleGateway.shared.stop()` fully unwinds the SDK back to
 `.notStarted` — useful for tests or when you need to swap config at
-runtime. It doesn't touch persisted state.
+runtime. It keeps persisted state: queued sightings, the data-collection
+toggle and the gateway registration. A later `start(config:)` with the
+same Group ID reuses that registration; with a different Group ID it
+switches groups as described below.
+
+## Changing the Gateway Group ID
+
+When the group a device reports to changes at runtime — for example when
+the signed-in user or their organization changes — switch the running SDK:
+
+```swift
+let result = await HubbleGateway.shared.changeGroupId(newGroupId)
+switch result {
+case .unchanged, .switched, .switchedToFallback:
+    break                              // done
+case .switchedPendingRegistration:
+    break                              // switched; the SDK finishes registering on its own
+case .notApplied(let reason):
+    print("Group ID not changed: \(reason)")  // not started, or an empty Group ID
+@unknown default:
+    break
+}
+```
+
+The call never throws; `GroupChangeResult` says what happened:
+
+| Result | Meaning |
+|---|---|
+| `.unchanged` | The Group ID is the one already in effect; nothing was done. |
+| `.switched` | Registered under the new group; `gatewayId` is the new one. |
+| `.switchedToFallback` | The new Group ID was refused; registered under `fallbackSdkKey`. |
+| `.switchedPendingRegistration(reason)` | Switched, not registered yet: `dataCollectionDisabled`, `uploadsRestricted`, `networkError`, `serverError`, `groupIdRefused` or `gatewayDisabled`. The SDK retries on its own (a disabled gateway hourly). |
+| `.notApplied(reason)` | Nothing changed: `notStarted` or `emptyGroupId`. |
+
+- **Same Group ID as the one in effect:** nothing happens — no network
+  call, queued data untouched.
+- **Different Group ID:** new sightings and location fixes belong to the
+  new group from this moment, and the device registers under the new group before the call
+  returns, so `gatewayId` holds the new id and the new group's settings
+  apply. Scanning, the data-collection toggle, scan listeners and
+  background tasks keep running as they were.
+- **Sightings and location fixes queued under the previous group are still
+  uploaded — under the previous group's registration**, never under the new
+  one. Until the new registration succeeds the previous one stays in use;
+  after that it is kept aside until its data is uploaded, its credentials
+  stop working, or 7 days pass (whatever is left then is dropped).
+  Data collected under the previous Group ID that has not been uploaded yet
+  is dropped if that group is revoked or this device's gateway is disabled
+  before the upload. It is never uploaded under another group.
+- **Data collection disabled, uploads held by the network policy, or the
+  registration fails** (for example, offline): the switch happens at once
+  and the result is `.switchedPendingRegistration`; every upload cycle
+  retries the registration under the new group, without backing off.
+
+You don't need `stop()`, `start(config:)` or `deleteAllData()` for this.
+Starting with a different Group ID has the same effect: `start(config:)`
+compares the Group ID with the one the stored registration was made under,
+and if they differ it registers under the new one right away.
+
+The SDK does not remember the Group ID across launches — `start(config:)`
+decides it every time, including background relaunches through the
+`configProvider` of `registerBackgroundTasks(configProvider:)`. Have both
+return the Group ID you last switched to; returning a different one counts
+as another switch.
+
+`activeGroupHash` (also in `UploadDiagnostics`) reports the SHA-256 hash
+of the Group ID in effect — the value the Hubble dashboard shows for the
+group — so a diagnostics screen can show which group the device reports to
+without exposing the Group ID itself.
+
+### Fallback Group ID
+
+`HubbleGatewayConfig(sdkKey:fallbackSdkKey:)` takes an optional backup
+Group ID. The SDK uses it when `sdkKey` is empty, or when registration with
+`sdkKey` is refused (HTTP 401: unknown or revoked Group ID) — also when the
+current registration stops working and registering again with `sdkKey` is
+refused. Network errors, rate limiting and server errors never switch to
+the fallback. While on the fallback the SDK retries
+`sdkKey` every hour and on every `start(config:)` / `changeGroupId(_:)`,
+and returns to it as soon as it is accepted. Data collected under one
+Group ID are never uploaded under the other, so if `sdkKey` is revoked
+while the SDK moves to the fallback, data not yet uploaded under it is
+dropped. `isUsingFallbackGroupId` (also
+in `UploadDiagnostics`) tells you which one is in use; `activeGroupHash` is
+the fallback's hash meanwhile.
+
+### Disabled gateway
+
+If registration is answered with HTTP 403 `gateway_disabled`, this device's
+gateway has been disabled in that group. The SDK does **not** move it to the
+fallback Group ID and uploads nothing new for that group; it retries the
+registration every hour and on every `start(config:)`, and resumes on its
+own once the gateway is enabled again. `isGatewayDisabled` (also in
+`UploadDiagnostics`) is `true` meanwhile, and `changeGroupId(_:)` reports
+`.switchedPendingRegistration(.gatewayDisabled)`. Data queued for that group
+stays on the device (until the normal retention removes it) and is never
+uploaded under another group.
+
+Updating from 0.7.0 or earlier: those versions did not record which group
+a registration belongs to. The SDK keeps that registration and the data
+queued before the update together: the data is uploaded under that
+registration only — never under the Group ID the app starts with — while
+the device registers under the new Group ID.
 
 ## App Store submission checklist
 

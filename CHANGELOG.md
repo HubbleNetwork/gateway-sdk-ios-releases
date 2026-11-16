@@ -3,6 +3,71 @@
 All notable changes to the Hubble Gateway SDK for iOS. This file ships with
 each release to [gateway-sdk-ios-releases](https://github.com/HubbleNetwork/gateway-sdk-ios-releases).
 
+## 0.7.1 — 2026-11-16
+
+### Added
+
+- `HubbleGateway.changeGroupId(_:)` switches the Gateway Group ID on a
+  running SDK — for sign-in, org switch or sign-out — without `stop()`,
+  `start(config:)` or `deleteAllData()`. It never throws and returns a
+  `GroupChangeResult` (`.unchanged`, `.switched`, `.switchedToFallback`,
+  `.switchedPendingRegistration(reason)`, `.notApplied(reason)`). Sightings
+  and location fixes collected under the previous Group ID are still
+  uploaded under it, never under the new one. Scanning, listeners and
+  background tasks are not interrupted. See "Changing the Gateway Group ID"
+  in the README.
+- `HubbleGatewayConfig(sdkKey:fallbackSdkKey:…)`: an optional backup Group
+  ID, used when `sdkKey` is empty or refused (HTTP 401). The SDK retries
+  `sdkKey` hourly and returns to it once it is accepted. Defaults to `""`
+  (no fallback).
+- `activeGroupHash`, `isUsingFallbackGroupId` and `isGatewayDisabled` on
+  `HubbleGateway` and `UploadDiagnostics`. `activeGroupHash` is the SHA-256
+  hash of the Group ID in effect — the value the Hubble dashboard shows —
+  so a diagnostics screen can show the group without exposing the ID.
+  `isGatewayDisabled` is `true` while this device's gateway is disabled in
+  its group; the SDK then uploads nothing new for that group and resumes on
+  its own once the gateway is enabled again.
+
+### Changed
+
+- `start(config:)` with a Group ID different from the one the device is
+  registered under now registers under the new Group ID right away.
+  Previously the new value was silently ignored until `deleteAllData()`.
+  The SDK does not remember the Group ID across launches, so make
+  `start(config:)` and the `configProvider` of
+  `registerBackgroundTasks(configProvider:)` return the Group ID you last
+  switched to — returning a different one counts as another switch.
+- `ScanListener`s now receive advertisements for host
+  `additionalScanServiceUUIDs` that list the UUID without service data;
+  these arrive with an **empty** `serviceData`. If your listener assumes
+  `serviceData` is non-empty, handle the empty case. Such sightings are
+  delivered to listeners only — never stored or uploaded. Built-in and
+  server-configured payload UUIDs behave as before.
+- Packet uploads now drain the backlog each upload cycle, newest sightings
+  first, instead of sending one oldest-first batch per cycle. A device
+  with a large queue delivers fresh sightings promptly rather than only
+  backlog. Upload batches default to 1,000 packets (was 500) and can be
+  raised by the server up to 5,000.
+- Updating from 0.7.0 or earlier keeps the existing registration and its
+  queued data together: that data is uploaded under the pre-update
+  registration only. The local database is migrated in place on first
+  launch; no host action is needed.
+- Docs and log messages now call the `sdkKey` value the "Gateway Group
+  ID". Identifiers (`sdkKey`, `X-Sdk-Key`) are unchanged.
+
+### Fixed
+
+- Upload cycles started during a short background wake (a BLE discovery,
+  a location or motion change) could be suspended by iOS mid-request,
+  surfacing as `NSURLErrorCancelled` (-999) or connection-lost errors and
+  arming the upload backoff. Each cycle now runs under a background-task
+  assertion, and a cancelled request is treated as a cancellation rather
+  than an upload failure — it no longer sets `lastError`, marks rows
+  failed, or arms the backoff.
+- A heartbeat response carrying server commands could cause the server
+  configuration in the same response to be discarded. Configuration and
+  commands are now read independently.
+
 ## 0.7.0 — 2026-10-30
 
 ### Added
